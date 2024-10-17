@@ -14,6 +14,7 @@
 
 1. Google assistant integration ("Hey Google, what's for dinner today?")
 2. Generate shopping list based on recipes in calendar
+3. Review recipes
 
 ## NFRs
 
