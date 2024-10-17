@@ -1,5 +1,6 @@
-from typing import TypedDict
+from dataclasses import dataclass
 
 
-class Recipe(TypedDict):
+@dataclass
+class Recipe:
     name: str
