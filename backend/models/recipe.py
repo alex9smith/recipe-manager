@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
+from uuid import uuid4
 
-from typing import List
+from typing import List, Optional
 
 
 class SourceType(Enum):
@@ -27,9 +28,21 @@ class Book(Source):
     type: SourceType = SourceType.BOOK
 
 
-@dataclass
 class Recipe:
-    name: str
-    source: Source
-    ingredients: List[str]
-    tags: List[str]
+
+    def __init__(
+        self,
+        name: str,
+        source: Source,
+        ingredients: List[str],
+        tags: List[str],
+        id: Optional[str] = None,
+    ) -> None:
+        self.id = id
+        self.name = name
+        self.ingredients = ingredients
+        self.tags = tags
+        self.source = source
+
+        if self.id is None:
+            self.id = uuid4()
