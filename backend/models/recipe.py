@@ -13,7 +13,8 @@ class SourceType(Enum):
 
 @dataclass
 class Source:
-    pass
+    def to_dict(self) -> Dict[str, str]:
+        raise NotImplementedError
 
 
 @dataclass
@@ -21,12 +22,18 @@ class Website(Source):
     address: str
     type: SourceType = SourceType.WEBSITE
 
+    def to_dict(self) -> Dict[str, str]:
+        return {"type": "website", "address": self.address}
+
 
 @dataclass
 class Book(Source):
     title: str
     page: int
     type: SourceType = SourceType.BOOK
+
+    def to_dict(self) -> Dict[str, str]:
+        return {"type": "book", "title": self.title, "page": self.page}
 
 
 class Recipe:
@@ -52,6 +59,15 @@ class Recipe:
 
     def find_all(self) -> List["Recipe"]:
         results = self.client.find_all("recipe")
+
+    def to_dict(self) -> Dict[str, str | Dict[str, str] | List[str]]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "source": self.source.to_dict(),
+            "ingredients": self.ingredients,
+            "tags": self.tags,
+        }
 
     @classmethod
     def _source_from_dict(cls, input: Dict[str, Any]) -> Source:

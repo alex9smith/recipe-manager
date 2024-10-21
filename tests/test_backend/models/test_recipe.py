@@ -14,6 +14,16 @@ from backend.models.recipe import Recipe, Book, SourceType, Website
 book = Book(title="title", page=1)
 
 
+class TestSource:
+    def test_website_to_dict(self):
+        source = Recipe._source_from_dict(SOURCE_WEBSITE_DICT)
+        assert SOURCE_WEBSITE_DICT == source.to_dict()
+
+    def test_book_to_dict(self):
+        source = Recipe._source_from_dict(SOURCE_BOOK_DICT)
+        assert SOURCE_BOOK_DICT == source.to_dict()
+
+
 class TestRecipe:
 
     @patch("backend.models.recipe.DynamoDBClient")
@@ -106,3 +116,14 @@ class TestRecipe:
 
         recipe = Recipe.from_dict(input=input)
         assert recipe.id == "mock_id"
+
+    @patch("backend.models.recipe.DynamoDBClient")
+    def test_to_dict(self, dynamodb_mock: Mock):
+        website_recipe = Recipe.from_dict(RECIPE_DICT)
+
+        book_recipe_dict = deepcopy(RECIPE_DICT)
+        book_recipe_dict["source"] = SOURCE_BOOK_DICT
+        book_recipe = Recipe.from_dict(book_recipe_dict)
+
+        assert RECIPE_DICT == website_recipe.to_dict()
+        assert book_recipe_dict == book_recipe.to_dict()
