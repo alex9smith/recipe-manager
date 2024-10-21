@@ -6,3 +6,14 @@ from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
 
 LAMBDA_CONTEXT: LambdaContext = MagicMock()
 API_GATEWAY_PROXY_EVENT_V2 = APIGatewayProxyEventV2({})
+
+SOURCE_WEBSITE_DICT = {"type": "website", "address": "address"}
+SOURCE_BOOK_DICT = {"type": "book", "page": 1, "title": "title"}
+
+RECIPE_DICT = {
+    "id": "id",
+    "name": "name",
+    "ingredients": ["ingredient"],
+    "tags": ["tag"],
+    "source": SOURCE_WEBSITE_DICT,
+}
