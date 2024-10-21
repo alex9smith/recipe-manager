@@ -1,6 +1,7 @@
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
 from aws_lambda_powertools.utilities.typing import LambdaContext
 
+
 from backend.models.recipe import Recipe
 from backend.services.logger import get_logger
 
