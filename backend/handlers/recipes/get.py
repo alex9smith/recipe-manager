@@ -10,4 +10,9 @@ logger = get_logger("create-recipe")
 
 @logger.inject_lambda_context
 def handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> dict:
-    return {"status": 200}
+    recipes = Recipe.find_all()
+    return {
+        "status": 200,
+        "count": len(recipes),
+        "recipes": [recipe.to_dict() for recipe in recipes],
+    }
