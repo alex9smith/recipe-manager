@@ -2,7 +2,7 @@ from os import getenv
 import boto3
 from boto3.dynamodb.conditions import Key
 
-from typing import Any, List
+from typing import Any, Dict, List
 
 
 class DynamoDBClient:
@@ -25,3 +25,14 @@ class DynamoDBClient:
         )
 
         return result["Items"]
+
+    def put_item(self, type: str, item: Dict[str, Any]):
+        if "id" not in item.keys():
+            raise ValueError("Item must have an id")
+
+        self.table.put_item(
+            Item={"item_type": type} | item,
+            ReturnValues="NONE",
+            ReturnConsumedCapacity="NONE",
+            ReturnItemCollectionMetrics="NONE",
+        )

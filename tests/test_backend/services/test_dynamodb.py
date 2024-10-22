@@ -1,6 +1,9 @@
 from sys import path
 from os import environ
 from unittest.mock import Mock
+from pytest import raises
+
+from tests.test_backend.fixtures import RECIPE_DICT
 
 path.append("../../../backend")
 from backend.services.dynamodb import DynamoDBClient
@@ -23,4 +26,26 @@ class TestDynamoDBClient:
         client.find_all(partition_key="test")
 
         table_mock.query.assert_called_once
+        del environ["DYNAMODB_TABLE_NAME"]
+
+    def test_put_item_raises_when_id_missing(self):
+        environ["DYNAMODB_TABLE_NAME"] = "TEST"
+        table_mock = Mock()
+
+        client = DynamoDBClient(table=table_mock)
+        with raises(ValueError):
+            client.put_item(type="test", item={})
+
+        del environ["DYNAMODB_TABLE_NAME"]
+
+    def test_put_item_passes_to_dynamo_resource(self):
+        environ["DYNAMODB_TABLE_NAME"] = "TEST"
+        table_mock = Mock()
+        table_mock.put_item.return_value = {}
+
+        client = DynamoDBClient(table=table_mock)
+        client.put_item(type="test", item=RECIPE_DICT)
+
+        table_mock.put_item.assert_called_once
+
         del environ["DYNAMODB_TABLE_NAME"]

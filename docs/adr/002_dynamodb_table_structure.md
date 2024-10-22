@@ -14,7 +14,7 @@ Both these objects can have a single ID attribute to uniqely identify them so we
 | Attribute name | Use           |
 | -------------- | ------------- |
 | item_type      | Partition key |
-| item_id        | Sort key      |
+| id             | Sort key      |
 
 We need CRUD operations on each type of object which are well supported with this primary key structure.
 

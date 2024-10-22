@@ -106,3 +106,9 @@ class Recipe:
     def find_all(self) -> List["Recipe"]:
         results = Recipe._init_client().find_all("recipe")
         return [Recipe.from_dict(item) for item in results["Items"]]
+
+    def save(self) -> None:
+        if self.client is None:
+            self.client = Recipe._init_client()
+
+        self.client.put_item("recipe", self.to_dict())

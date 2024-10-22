@@ -137,3 +137,10 @@ class TestRecipe:
 
         assert len(recipes) == 2
         assert isinstance(recipes[0], Recipe)
+
+    @patch("backend.models.recipe.DynamoDBClient")
+    def test_save_calls_dyanmodb_client(self, dynamodb_mock: MagicMock):
+        recipe = Recipe.from_dict(RECIPE_DICT)
+        recipe.save()
+
+        dynamodb_mock.put_item.assert_called_once
