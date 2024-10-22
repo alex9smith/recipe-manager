@@ -1,6 +1,6 @@
 from sys import path
 from copy import deepcopy
-from unittest.mock import patch, Mock
+from unittest.mock import patch, MagicMock, Mock
 from pytest import raises
 from tests.test_backend.fixtures import (
     RECIPE_DICT,
@@ -127,3 +127,13 @@ class TestRecipe:
 
         assert RECIPE_DICT == website_recipe.to_dict()
         assert book_recipe_dict == book_recipe.to_dict()
+
+    @patch("backend.models.recipe.DynamoDBClient")
+    def test_find_all_parses_results(self, dynamodb_mock: MagicMock):
+        dynamodb_mock.return_value.find_all.return_value = {
+            "Items": [RECIPE_DICT, RECIPE_DICT]
+        }
+        recipes = Recipe.find_all()
+
+        assert len(recipes) == 2
+        assert isinstance(recipes[0], Recipe)

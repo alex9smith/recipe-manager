@@ -37,7 +37,6 @@ class Book(Source):
 
 
 class Recipe:
-
     def __init__(
         self,
         name: str,
@@ -55,10 +54,11 @@ class Recipe:
         if self.id is None:
             self.id = uuid4()
 
-        self.client = DynamoDBClient()
+        self.client = None
 
-    def find_all(self) -> List["Recipe"]:
-        results = self.client.find_all("recipe")
+    @classmethod
+    def _init_client(cls) -> DynamoDBClient:
+        return DynamoDBClient()
 
     def to_dict(self) -> Dict[str, str | Dict[str, str] | List[str]]:
         return {
@@ -101,3 +101,8 @@ class Recipe:
             )
         except:
             raise ValueError("Provided dict cannot be parsed to a Recipe")
+
+    @classmethod
+    def find_all(self) -> List["Recipe"]:
+        results = Recipe._init_client().find_all("recipe")
+        return [Recipe.from_dict(item) for item in results["Items"]]
