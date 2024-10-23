@@ -106,6 +106,10 @@ resource "aws_lambda_permission" "apigw_receipes_get" {
   function_name = "${var.application_name}_recipes_get"
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.recipe_manager_api.execution_arn}/*/*"
+
+  depends_on = [
+    aws_lambda_function.recipes_get,
+  ]
 }
 
 resource "aws_lambda_permission" "apigw_receipes_post" {
@@ -113,4 +117,8 @@ resource "aws_lambda_permission" "apigw_receipes_post" {
   function_name = "${var.application_name}_recipes_post"
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.recipe_manager_api.execution_arn}/*/*"
+
+  depends_on = [
+    aws_lambda_function.recipes_post,
+  ]
 }

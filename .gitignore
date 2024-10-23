@@ -164,4 +164,4 @@ cython_debug/
 # Infra
 /dist
 /infra/.terraform*
-/infra/*.tfstate
+/infra/*.tfstate*
