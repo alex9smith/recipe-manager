@@ -22,7 +22,7 @@ data "archive_file" "requirements_layer" {
 }
 
 resource "aws_lambda_layer_version" "requirements_layer" {
-  layer_name          = "requirements_layer"
+  layer_name          = "${var.application_name}_requirements_layer"
   filename            = data.archive_file.requirements_layer.output_path
   source_code_hash    = data.archive_file.requirements_layer.output_base64sha256
   compatible_runtimes = ["python3.12"]
@@ -47,7 +47,7 @@ resource "aws_iam_role" "api_lambda_base_role" {
   assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
 }
 
-data "aws_iam_policy_document" "lambda_logging" {
+data "aws_iam_policy_document" "recipe_manager_lambda_logging" {
   statement {
     effect = "Allow"
 
@@ -62,13 +62,13 @@ data "aws_iam_policy_document" "lambda_logging" {
 }
 
 resource "aws_iam_policy" "lambda_logging" {
-  name        = "lambda_logging"
+  name        = "recipe_manager_lambda_logging"
   path        = "/"
   description = "IAM policy for logging from a lambda"
-  policy      = data.aws_iam_policy_document.lambda_logging.json
+  policy      = data.aws_iam_policy_document.recipe_manager_lambda_logging.json
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_logs" {
+resource "aws_iam_role_policy_attachment" "recipe_manager_lambda_logs" {
   role       = aws_iam_role.api_lambda_base_role.name
   policy_arn = aws_iam_policy.lambda_logging.arn
 }

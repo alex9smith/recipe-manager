@@ -16,7 +16,7 @@ resource "aws_lambda_function" "recipes_get" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.lambda_logs,
+    aws_iam_role_policy_attachment.recipe_manager_lambda_logs,
     aws_cloudwatch_log_group.recipe_get_lambda_logs,
   ]
 }
@@ -44,7 +44,7 @@ resource "aws_lambda_function" "recipes_post" {
   }
 
   depends_on = [
-    aws_iam_role_policy_attachment.lambda_logs,
+    aws_iam_role_policy_attachment.recipe_manager_lambda_logs,
     aws_cloudwatch_log_group.recipe_get_lambda_logs,
   ]
 }
