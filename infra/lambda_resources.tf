@@ -73,7 +73,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   policy_arn = aws_iam_policy.lambda_logging.arn
 }
 
-data "aws_iam_policy_document" "dynamodb_table_acces" {
+data "aws_iam_policy_document" "dynamodb_table_access" {
   statement {
     effect = "Allow"
 
@@ -99,4 +99,18 @@ resource "aws_iam_policy" "dynamodb_table_access" {
 resource "aws_iam_role_policy_attachment" "dynamodb_table_access" {
   role       = aws_iam_role.api_lambda_base_role.name
   policy_arn = aws_iam_policy.dynamodb_table_access.arn
+}
+
+resource "aws_lambda_permission" "apigw_receipes_get" {
+  action        = "lambda:InvokeFunction"
+  function_name = "${var.application_name}_recipes_get"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.recipe_manager_api.execution_arn}/*/*"
+}
+
+resource "aws_lambda_permission" "apigw_receipes_post" {
+  action        = "lambda:InvokeFunction"
+  function_name = "${var.application_name}_recipes_post"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.recipe_manager_api.execution_arn}/*/*"
 }
