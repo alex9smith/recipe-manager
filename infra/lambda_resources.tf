@@ -1,0 +1,102 @@
+data "archive_file" "lambda" {
+  type        = "zip"
+  source_dir  = "../backend"
+  output_path = "../dist/lambda_function_payload.zip"
+}
+
+resource "null_resource" "pip_install" {
+  triggers = {
+    shell_hash = "${sha256(file("../requirements.txt"))}"
+  }
+
+  provisioner "local-exec" {
+    command = "python3 -m pip install -r ../requirements.txt -t ../dist/layer/python"
+  }
+}
+
+data "archive_file" "requirements_layer" {
+  type        = "zip"
+  source_dir  = "../dist/layer"
+  output_path = "../dist/layer.zip"
+  depends_on  = [null_resource.pip_install]
+}
+
+resource "aws_lambda_layer_version" "requirements_layer" {
+  layer_name          = "requirements_layer"
+  filename            = data.archive_file.requirements_layer.output_path
+  source_code_hash    = data.archive_file.requirements_layer.output_base64sha256
+  compatible_runtimes = ["python3.12"]
+}
+
+
+data "aws_iam_policy_document" "lambda_assume_role" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
+resource "aws_iam_role" "api_lambda_base_role" {
+  name               = "api_lambda_base_role"
+  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
+}
+
+data "aws_iam_policy_document" "lambda_logging" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+
+    resources = ["arn:aws:logs:*:*:*"]
+  }
+}
+
+resource "aws_iam_policy" "lambda_logging" {
+  name        = "lambda_logging"
+  path        = "/"
+  description = "IAM policy for logging from a lambda"
+  policy      = data.aws_iam_policy_document.lambda_logging.json
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_logs" {
+  role       = aws_iam_role.api_lambda_base_role.name
+  policy_arn = aws_iam_policy.lambda_logging.arn
+}
+
+data "aws_iam_policy_document" "dynamodb_table_acces" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "dynamodb:DeleteItem",
+      "dynamodb:GetItem",
+      "dynamodb:PutItem",
+      "dynamodb:Query",
+      "dynamodb:UpdateItem"
+    ]
+
+    resources = [aws_dynamodb_table.table.arn]
+  }
+}
+
+resource "aws_iam_policy" "dynamodb_table_access" {
+  name        = "dynamodb_table_access"
+  path        = "/"
+  description = "IAM policy to allow API lambdas to read from and write to DynamoDB"
+  policy      = data.aws_iam_policy_document.dynamodb_table_access.json
+}
+
+resource "aws_iam_role_policy_attachment" "dynamodb_table_access" {
+  role       = aws_iam_role.api_lambda_base_role.name
+  policy_arn = aws_iam_policy.dynamodb_table_access.arn
+}
