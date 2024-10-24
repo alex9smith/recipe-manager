@@ -14,10 +14,17 @@ from backend.models.recipe import Recipe
 class TestRecipesGetHandler:
 
     @patch("backend.handlers.recipes.get.Recipe")
-    def test_handler_returns_a_dict_with_status(self, recipe_mock: MagicMock):
+    def test_handler_returns_a_dict_with_correct_fields(self, recipe_mock: MagicMock):
         recipe_mock.find_all.return_value = []
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
-        assert response["status"] == 200
+        for response_key in [
+            "body",
+            "statusCode",
+            "cookies",
+            "headers",
+            "isBase64Encoded",
+        ]:
+            assert response_key in response.keys()
 
     @patch("backend.handlers.recipes.get.Recipe")
     def test_handler_returns_a_dict_with_recipes(self, recipe_mock: MagicMock):

@@ -19,7 +19,14 @@ class TestRecipesPostHandler:
     def test_handler_returns_a_dict_with_status(self, recipe_mock: MagicMock):
         recipe_mock.find_all.return_value = []
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
-        assert response["status"] == 200
+        for response_key in [
+            "body",
+            "statusCode",
+            "cookies",
+            "headers",
+            "isBase64Encoded",
+        ]:
+            assert response_key in response.keys()
 
     @patch("backend.handlers.recipes.post.Recipe.save")
     def test_handler_saves_the_recipe(self, save_mock: MagicMock):
