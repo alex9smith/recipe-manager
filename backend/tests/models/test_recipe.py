@@ -2,13 +2,11 @@ from sys import path
 from copy import deepcopy
 from unittest.mock import patch, MagicMock, Mock
 from pytest import raises
-from tests.test_backend.fixtures import (
+from backend.tests.fixtures import (
     RECIPE_DICT,
     SOURCE_BOOK_DICT,
     SOURCE_WEBSITE_DICT,
 )
-
-path.append("../../../backend")
 from backend.models.recipe import Recipe, Book, SourceType, Website
 
 book = Book(title="title", page=1)

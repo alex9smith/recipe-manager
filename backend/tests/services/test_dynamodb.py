@@ -3,9 +3,7 @@ from os import environ
 from unittest.mock import Mock
 from pytest import raises
 
-from tests.test_backend.fixtures import RECIPE_DICT
-
-path.append("../../../backend")
+from backend.tests.fixtures import RECIPE_DICT
 from backend.services.dynamodb import DynamoDBClient
 
 

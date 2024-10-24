@@ -1,7 +1,5 @@
 from sys import path
 import json
-
-path.append("../../../backend")
 from backend.models.response import APIGatewayResponse, DEFAULT_HEADERS
 
 

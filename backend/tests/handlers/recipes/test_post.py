@@ -1,15 +1,12 @@
 from sys import path
 import json
 from unittest.mock import patch, MagicMock
-from tests.test_backend.fixtures import (
+from backend.tests.fixtures import (
     API_GATEWAY_PROXY_EVENT_V2,
     LAMBDA_CONTEXT,
     RECIPE_DICT,
 )
 from aws_lambda_powertools.utilities.data_classes import APIGatewayProxyEventV2
-
-
-path.append("../../../../backend")
 from backend.handlers.recipes.post import handler
 
 

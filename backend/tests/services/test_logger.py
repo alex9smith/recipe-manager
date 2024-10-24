@@ -1,9 +1,6 @@
 from sys import path
 from aws_lambda_powertools.logging import Logger
-
-path.append("../../../backend")
 from backend.services.logger import get_logger
-
 
 logger = get_logger("test")
 

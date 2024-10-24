@@ -12,6 +12,7 @@ data "archive_file" "lambda" {
   type        = "zip"
   source_dir  = "../dist/backend"
   output_path = "../dist/lambda_function_payload.zip"
+  excludes = ["../dist/backend/backend/tests"]
   depends_on  = [null_resource.copy_lambda_code]
 }
 
