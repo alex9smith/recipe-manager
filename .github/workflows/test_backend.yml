@@ -2,6 +2,9 @@ name: Test Python backend
 
 on: [push]
 
+env:
+  AWS_DEFAULT_REGION: eu-west-2
+
 jobs:
   build:
     runs-on: ubuntu-latest
