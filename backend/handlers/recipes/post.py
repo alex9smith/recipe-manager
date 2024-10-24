@@ -13,7 +13,6 @@ logger = get_logger("recipes-post")
 def handler(
     event: APIGatewayProxyEventV2, context: LambdaContext
 ) -> APIGatewayResponse:
-    logger.info(event)
     body = json.loads(event["body"])
     recipe = Recipe.from_dict(body)
     recipe.save()
