@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "recipes_get" {
   function_name    = "${var.application_name}_recipes_get"
-  filename         = "lambda_function_payload.zip"
+  filename         = "../dist/lambda_function_payload.zip"
   role             = aws_iam_role.api_lambda_base_role.arn
   handler          = "handlers.recipes.get.handler"
   layers           = [aws_lambda_layer_version.requirements_layer.arn]
@@ -28,7 +28,7 @@ resource "aws_cloudwatch_log_group" "recipe_get_lambda_logs" {
 
 resource "aws_lambda_function" "recipes_post" {
   function_name    = "${var.application_name}_recipes_post"
-  filename         = "lambda_function_payload.zip"
+  filename         = "../dist/lambda_function_payload.zip"
   role             = aws_iam_role.api_lambda_base_role.arn
   handler          = "handlers.recipes.post.handler"
   layers           = [aws_lambda_layer_version.requirements_layer.arn]
