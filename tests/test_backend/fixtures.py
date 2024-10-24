@@ -18,4 +18,5 @@ RECIPE_DICT = {
     "tags": ["tag"],
     "source": SOURCE_WEBSITE_DICT,
     "difficulty": "easy",
+    "length": "under_30",
 }
