@@ -12,7 +12,7 @@ from backend.handlers.recipes.get_all import handler
 from backend.models.recipe import Recipe
 
 
-class TestRecipesGetHandler:
+class TestRecipesGetAllHandler:
 
     @patch("backend.handlers.recipes.get_all.Recipe")
     def test_handler_returns_a_dict_with_correct_fields(self, recipe_mock: MagicMock):
