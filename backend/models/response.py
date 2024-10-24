@@ -1,4 +1,7 @@
+import json
 from typing import Any, Dict, List, Optional, TypedDict
+
+DEFAULT_HEADERS = {"content-type": "application/json"}
 
 
 class APIGatewayResponse(TypedDict):
@@ -14,12 +17,12 @@ class APIGatewayResponse(TypedDict):
         body: Dict[str, Any],
         status_code: Optional[int] = None,
         cookies: Optional[List[str]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        headers: Dict[str, str] = {},
     ) -> "APIGatewayResponse":
         return {
-            "body": body,
+            "body": json.dumps(body),
             "statusCode": status_code if status_code is not None else 200,
             "cookies": cookies if cookies is not None else [],
-            "headers": headers if headers is not None else {},
+            "headers": DEFAULT_HEADERS | headers,
             "isBase64Encoded": False,
         }

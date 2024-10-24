@@ -16,8 +16,9 @@ from backend.handlers.recipes.post import handler
 class TestRecipesPostHandler:
 
     @patch("backend.handlers.recipes.post.Recipe")
-    def test_handler_returns_a_dict_with_status(self, recipe_mock: MagicMock):
+    def test_handler_returns_a_dict_with_correct_fields(self, recipe_mock: MagicMock):
         recipe_mock.find_all.return_value = []
+        recipe_mock.from_dict.return_value.to_dict.return_value = {}
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
         for response_key in [
             "body",
@@ -43,4 +44,4 @@ class TestRecipesPostHandler:
         response = handler(
             APIGatewayProxyEventV2({"body": json.dumps(RECIPE_DICT)}), LAMBDA_CONTEXT
         )
-        assert response["body"]["recipe"] == RECIPE_DICT
+        assert json.loads(response["body"])["recipe"] == RECIPE_DICT

@@ -1,7 +1,8 @@
 from sys import path
+import json
 
 path.append("../../../backend")
-from backend.models.response import APIGatewayResponse
+from backend.models.response import APIGatewayResponse, DEFAULT_HEADERS
 
 
 class TestAPIGatewayResponse:
@@ -15,10 +16,10 @@ class TestAPIGatewayResponse:
             body=body, status_code=status_code, cookies=cookies, headers=headers
         )
 
-        assert output["body"] == body
+        assert output["body"] == json.dumps(body)
         assert output["cookies"] == cookies
         assert output["statusCode"] == status_code
-        assert output["headers"] == headers
+        assert output["headers"] == DEFAULT_HEADERS | headers
 
     def test_build_returns_optional_fields_as_defaults(self):
         body = {"body_key": "body_value"}
@@ -27,7 +28,7 @@ class TestAPIGatewayResponse:
 
         assert output["cookies"] == []
         assert output["statusCode"] == 200
-        assert output["headers"] == {}
+        assert output["headers"] == DEFAULT_HEADERS
 
     def test_build_returns_base64_key_as_false(self):
         body = {"body_key": "body_value"}
