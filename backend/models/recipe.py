@@ -2,14 +2,9 @@ from dataclasses import dataclass
 from enum import Enum
 from uuid import uuid4
 from backend.services.dynamodb import DynamoDBClient
+from backend.models.filters import Difficulty
 
 from typing import Any, Dict, List, Optional
-
-
-class Difficulty(Enum):
-    EASY = "easy"
-    MEDIUM = "medium"
-    HARD = "hard"
 
 
 class SourceType(Enum):
