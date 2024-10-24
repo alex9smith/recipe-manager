@@ -2,7 +2,7 @@ resource "aws_lambda_function" "recipes_get" {
   function_name    = "${var.application_name}_recipes_get"
   filename         = "../dist/lambda_function_payload.zip"
   role             = aws_iam_role.api_lambda_base_role.arn
-  handler          = "handlers.recipes.get.handler"
+  handler          = "backend.handlers.recipes.get.handler"
   layers           = [aws_lambda_layer_version.requirements_layer.arn]
   source_code_hash = data.archive_file.lambda.output_base64sha256
   runtime          = "python3.12"
@@ -30,7 +30,7 @@ resource "aws_lambda_function" "recipes_post" {
   function_name    = "${var.application_name}_recipes_post"
   filename         = "../dist/lambda_function_payload.zip"
   role             = aws_iam_role.api_lambda_base_role.arn
-  handler          = "handlers.recipes.post.handler"
+  handler          = "backend.handlers.recipes.post.handler"
   layers           = [aws_lambda_layer_version.requirements_layer.arn]
   source_code_hash = data.archive_file.lambda.output_base64sha256
   runtime          = "python3.12"

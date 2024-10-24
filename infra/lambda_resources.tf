@@ -1,7 +1,18 @@
+resource "null_resource" "copy_lambda_code" {
+  triggers = {
+    dir_hash = sha1(join("", [for f in fileset("../backend", "**"): filesha1("../backend/${f}")]))
+  }
+
+  provisioner "local-exec" {
+    command = "rm -rf ../dist/backend && mkdir ../dist/backend && cp -r ../backend ../dist/backend/backend"
+  }
+}
+
 data "archive_file" "lambda" {
   type        = "zip"
-  source_dir  = "../backend"
+  source_dir  = "../dist/backend"
   output_path = "../dist/lambda_function_payload.zip"
+  depends_on  = [null_resource.copy_lambda_code]
 }
 
 resource "null_resource" "pip_install" {
