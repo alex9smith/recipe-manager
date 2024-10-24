@@ -1,6 +1,6 @@
 resource "null_resource" "copy_lambda_code" {
   triggers = {
-    dir_hash = sha1(join("", [for f in fileset("../backend", "**"): filesha1("../backend/${f}")]))
+    dir_hash = sha1(join("", [for f in fileset("../backend", "**") : filesha1("../backend/${f}")]))
   }
 
   provisioner "local-exec" {
@@ -112,14 +112,14 @@ resource "aws_iam_role_policy_attachment" "dynamodb_table_access" {
   policy_arn = aws_iam_policy.dynamodb_table_access.arn
 }
 
-resource "aws_lambda_permission" "apigw_receipes_get" {
+resource "aws_lambda_permission" "apigw_receipes_get_all" {
   action        = "lambda:InvokeFunction"
-  function_name = "${var.application_name}_recipes_get"
+  function_name = "${var.application_name}_recipes_get_all"
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.recipe_manager_api.execution_arn}/*/*"
 
   depends_on = [
-    aws_lambda_function.recipes_get,
+    aws_lambda_function.recipes_get_all,
   ]
 }
 

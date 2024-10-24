@@ -9,17 +9,17 @@ resource "aws_apigatewayv2_stage" "default_stage" {
   auto_deploy = "true"
 }
 
-resource "aws_apigatewayv2_integration" "recipes_get" {
+resource "aws_apigatewayv2_integration" "recipes_get_all" {
   api_id                 = aws_apigatewayv2_api.recipe_manager_api.id
   integration_type       = "AWS_PROXY"
   payload_format_version = "2.0"
-  integration_uri        = aws_lambda_function.recipes_get.invoke_arn
+  integration_uri        = aws_lambda_function.recipes_get_all.invoke_arn
 }
 
-resource "aws_apigatewayv2_route" "recipes_get" {
+resource "aws_apigatewayv2_route" "recipes_get_all" {
   api_id    = aws_apigatewayv2_api.recipe_manager_api.id
   route_key = "GET /api/v1/recipes"
-  target    = "integrations/${aws_apigatewayv2_integration.recipes_get.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.recipes_get_all.id}"
 }
 
 resource "aws_apigatewayv2_integration" "recipes_post" {

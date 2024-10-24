@@ -8,13 +8,13 @@ from tests.test_backend.fixtures import (
 )
 
 path.append("../../../../backend")
-from backend.handlers.recipes.get import handler
+from backend.handlers.recipes.get_all import handler
 from backend.models.recipe import Recipe
 
 
 class TestRecipesGetHandler:
 
-    @patch("backend.handlers.recipes.get.Recipe")
+    @patch("backend.handlers.recipes.get_all.Recipe")
     def test_handler_returns_a_dict_with_correct_fields(self, recipe_mock: MagicMock):
         recipe_mock.find_all.return_value = []
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
@@ -27,7 +27,7 @@ class TestRecipesGetHandler:
         ]:
             assert response_key in response.keys()
 
-    @patch("backend.handlers.recipes.get.Recipe")
+    @patch("backend.handlers.recipes.get_all.Recipe")
     def test_handler_returns_a_dict_with_recipes(self, recipe_mock: MagicMock):
         recipe_mock.find_all.return_value = [Recipe.from_dict(RECIPE_DICT)]
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
