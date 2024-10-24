@@ -7,8 +7,8 @@ from typing import Any, Dict, List, Optional
 
 
 class SourceType(Enum):
-    BOOK = 1
-    WEBSITE = 2
+    BOOK = "book"
+    WEBSITE = "website"
 
 
 @dataclass
@@ -23,7 +23,7 @@ class Website(Source):
     type: SourceType = SourceType.WEBSITE
 
     def to_dict(self) -> Dict[str, str]:
-        return {"type": "website", "address": self.address}
+        return {"type": self.type.value, "address": self.address}
 
 
 @dataclass
@@ -33,7 +33,7 @@ class Book(Source):
     type: SourceType = SourceType.BOOK
 
     def to_dict(self) -> Dict[str, str]:
-        return {"type": "book", "title": self.title, "page": self.page}
+        return {"type": self.type.value, "title": self.title, "page": self.page}
 
 
 class Recipe:
