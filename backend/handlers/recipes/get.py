@@ -13,6 +13,8 @@ def handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> dict:
     recipes = Recipe.find_all()
     return {
         "status": 200,
-        "count": len(recipes),
-        "recipes": [recipe.to_dict() for recipe in recipes],
+        "body": {
+            "count": len(recipes),
+            "recipes": [recipe.to_dict() for recipe in recipes],
+        },
     }

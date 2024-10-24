@@ -28,3 +28,12 @@ class TestRecipesPostHandler:
         )
 
         assert save_mock.assert_called_once
+
+    @patch("backend.handlers.recipes.post.Recipe.save")
+    def test_handler_includes_the_saved_recipe_in_the_response(
+        self, save_mock: MagicMock
+    ):
+        response = handler(
+            APIGatewayProxyEventV2({"body": json.dumps(RECIPE_DICT)}), LAMBDA_CONTEXT
+        )
+        assert response["body"]["recipe"] == RECIPE_DICT

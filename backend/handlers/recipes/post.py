@@ -14,6 +14,4 @@ def handler(event: APIGatewayProxyEventV2, context: LambdaContext) -> dict:
     recipe = Recipe.from_dict(body)
     recipe.save()
 
-    return {
-        "status": 200,
-    }
+    return {"status": 200, "body": {"recipe": recipe.to_dict()}}
