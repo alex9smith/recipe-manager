@@ -17,4 +17,5 @@ RECIPE_DICT = {
     "ingredients": ["ingredient"],
     "tags": ["tag"],
     "source": SOURCE_WEBSITE_DICT,
+    "difficulty": "easy",
 }

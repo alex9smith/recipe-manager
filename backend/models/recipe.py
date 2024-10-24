@@ -6,6 +6,12 @@ from backend.services.dynamodb import DynamoDBClient
 from typing import Any, Dict, List, Optional
 
 
+class Difficulty(Enum):
+    EASY = "easy"
+    MEDIUM = "medium"
+    HARD = "hard"
+
+
 class SourceType(Enum):
     BOOK = "book"
     WEBSITE = "website"
@@ -43,6 +49,7 @@ class Recipe:
         source: Source,
         ingredients: List[str],
         tags: List[str],
+        difficulty: Difficulty,
         id: Optional[str] = None,
     ) -> None:
         self.id = id
@@ -50,6 +57,7 @@ class Recipe:
         self.ingredients = ingredients
         self.tags = tags
         self.source = source
+        self.difficulty = difficulty
 
         if self.id is None:
             self.id = uuid4()
@@ -67,6 +75,7 @@ class Recipe:
             "source": self.source.to_dict(),
             "ingredients": self.ingredients,
             "tags": self.tags,
+            "difficulty": self.difficulty.value,
         }
 
     @classmethod
@@ -97,6 +106,7 @@ class Recipe:
                 source=Recipe._source_from_dict(input["source"]),
                 tags=input["tags"],
                 ingredients=input["ingredients"],
+                difficulty=Difficulty(input["difficulty"]),
                 id=id,
             )
         except:

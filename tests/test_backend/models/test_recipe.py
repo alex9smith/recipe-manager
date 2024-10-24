@@ -28,15 +28,28 @@ class TestRecipe:
 
     @patch("backend.models.recipe.DynamoDBClient")
     def test_recipe_saves_id(self, dynamodb_mock: Mock):
-        recipe = Recipe(id="id", name="A recipe", source=book, ingredients=[], tags=[])
+        recipe = Recipe(
+            id="id",
+            name="A recipe",
+            source=book,
+            ingredients=[],
+            tags=[],
+            difficulty="easy",
+        )
         assert recipe.id == "id"
 
     @patch("backend.models.recipe.DynamoDBClient")
     @patch("backend.models.recipe.uuid4")
     def test_recipe_generates_id_if_none(self, uuid_mock: Mock, dynamodb_mock: Mock):
-        uuid_mock.return_value = "id"
-        recipe = Recipe(name="A recipe", source=book, ingredients=[], tags=[])
-        assert recipe.id == "id"
+        uuid_mock.return_value = "generated_id"
+        recipe = Recipe(
+            name="A recipe",
+            source=book,
+            ingredients=[],
+            tags=[],
+            difficulty="easy",
+        )
+        assert recipe.id == "generated_id"
 
     def test_website_source_from_dict(self):
         source = Recipe._source_from_dict(SOURCE_WEBSITE_DICT)
