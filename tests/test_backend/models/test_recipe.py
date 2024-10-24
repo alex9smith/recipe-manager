@@ -130,9 +130,7 @@ class TestRecipe:
 
     @patch("backend.models.recipe.DynamoDBClient")
     def test_find_all_parses_results(self, dynamodb_mock: MagicMock):
-        dynamodb_mock.return_value.find_all.return_value = {
-            "Items": [RECIPE_DICT, RECIPE_DICT]
-        }
+        dynamodb_mock.return_value.find_all.return_value = [RECIPE_DICT, RECIPE_DICT]
         recipes = Recipe.find_all()
 
         assert len(recipes) == 2
