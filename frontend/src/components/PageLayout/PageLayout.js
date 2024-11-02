@@ -7,6 +7,9 @@ function PageLayout() {
         <p>
           <Link to="/">Home</Link>
         </p>
+        <p>
+          <Link to="/recipes">Recipes</Link>
+        </p>
       </header>
       <Outlet />
     </div>
