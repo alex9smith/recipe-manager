@@ -1,11 +1,9 @@
-const recipes = [
-  {
-    name: "a recipe",
-  },
-];
+import { useLoaderData } from "react-router";
 
 function FilterableRecipeList() {
-  const recipeListItems = recipes.map((recipe) => <li>{recipe.name}</li>);
+  const recipeListItems = useLoaderData().map((recipe) => (
+    <li>{recipe.name}</li>
+  ));
 
   return <ul>{recipeListItems}</ul>;
 }
