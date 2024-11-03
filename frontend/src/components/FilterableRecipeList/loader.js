@@ -1,9 +1,5 @@
-const recipes = [
-  {
-    name: "a recipe",
-  },
-];
+import { apiClient } from "../services/apiClient";
 
 export default function loader() {
-  return recipes;
+  return apiClient.getAllRecipes();
 }
