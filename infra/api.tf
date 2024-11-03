@@ -47,3 +47,16 @@ resource "aws_apigatewayv2_route" "recipes_post" {
   route_key = "POST /api/v1/recipes"
   target    = "integrations/${aws_apigatewayv2_integration.recipes_post.id}"
 }
+
+resource "aws_apigatewayv2_integration" "recipes_get_one" {
+  api_id                 = aws_apigatewayv2_api.recipe_manager_api.id
+  integration_type       = "AWS_PROXY"
+  payload_format_version = "2.0"
+  integration_uri        = aws_lambda_function.recipes_get_one.invoke_arn
+}
+
+resource "aws_apigatewayv2_route" "recipes_get_one" {
+  api_id    = aws_apigatewayv2_api.recipe_manager_api.id
+  route_key = "GET /api/v1/recipes/{id}"
+  target    = "integrations/${aws_apigatewayv2_integration.recipes_get_one.id}"
+}

@@ -2,7 +2,7 @@ from os import getenv
 import boto3
 from boto3.dynamodb.conditions import Key
 
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 class DynamoDBClient:
@@ -36,3 +36,11 @@ class DynamoDBClient:
             ReturnConsumedCapacity="NONE",
             ReturnItemCollectionMetrics="NONE",
         )
+
+    def get_item(self, partition_key: str, sort_key: str) -> Optional[dict[str, Any]]:
+        result = self.table.get_item(Key={"item_type": partition_key, "id": sort_key})
+
+        if "Item" in result:
+            return result["Item"]
+        else:
+            return None

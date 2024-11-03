@@ -116,6 +116,12 @@ class Recipe:
         results = Recipe._init_client().find_all("recipe")
         return [Recipe.from_dict(item) for item in results]
 
+    @classmethod
+    def find_one(self, id: str) -> Optional["Recipe"]:
+        return Recipe.from_dict(
+            Recipe._init_client().get_item(partition_key="recipe", sort_key=id)
+        )
+
     def save(self) -> None:
         if self.client is None:
             self.client = Recipe._init_client()

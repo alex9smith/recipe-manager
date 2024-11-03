@@ -47,3 +47,30 @@ class TestDynamoDBClient:
         table_mock.put_item.assert_called_once
 
         del environ["DYNAMODB_TABLE_NAME"]
+
+    def test_get_item_returns_none_if_no_match(self):
+        environ["DYNAMODB_TABLE_NAME"] = "TEST"
+        table_mock = Mock()
+        table_mock.get_item.return_value = {}
+
+        client = DynamoDBClient(table=table_mock)
+        item = client.get_item(partition_key="partition_key", sort_key="sort_key")
+
+        table_mock.get_item.assert_called_once
+        assert item is None
+
+        del environ["DYNAMODB_TABLE_NAME"]
+
+    def test_get_item_returns_one_item(self):
+        environ["DYNAMODB_TABLE_NAME"] = "TEST"
+        mock_item = {"item_key": "item_value"}
+        table_mock = Mock()
+        table_mock.get_item.return_value = {"Item": mock_item}
+
+        client = DynamoDBClient(table=table_mock)
+        item = client.get_item(partition_key="partition_key", sort_key="sort_key")
+
+        table_mock.get_item.assert_called_once
+        assert item == mock_item
+
+        del environ["DYNAMODB_TABLE_NAME"]

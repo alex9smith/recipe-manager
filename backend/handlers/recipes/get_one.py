@@ -6,17 +6,13 @@ from backend.models.recipe import Recipe
 from backend.services.logger import get_logger
 from backend.models.response import APIGatewayResponse
 
-logger = get_logger("recipes-get-all")
+logger = get_logger("recipes-get-one")
 
 
 @logger.inject_lambda_context
 def handler(
     event: APIGatewayProxyEventV2, context: LambdaContext
 ) -> APIGatewayResponse:
-    recipes = Recipe.find_all()
-    return APIGatewayResponse.build(
-        body={
-            "count": len(recipes),
-            "recipes": [recipe.to_dict() for recipe in recipes],
-        }
-    )
+    id = event["pathParameters"]["id"]
+    recipe = Recipe.find_one(id=id)
+    return APIGatewayResponse.build(body={"recipe": recipe.to_dict()})
