@@ -18,6 +18,10 @@ class ApiClient {
   async getAllRecipes() {
     return await this.#getUrl("/recipes");
   }
+
+  async getRecipe(id) {
+    return await this.#getUrl(`/recipes/${id}`);
+  }
 }
 
 export const apiClient = new ApiClient(getApiBaseUrl());
