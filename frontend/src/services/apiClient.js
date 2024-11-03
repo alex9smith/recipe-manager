@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from "../../constants";
+import { getApiBaseUrl } from "../constants";
 
 class ApiClient {
   constructor(baseUrl) {
