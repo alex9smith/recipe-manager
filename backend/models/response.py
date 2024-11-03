@@ -1,7 +1,12 @@
 import json
 from typing import Any, Dict, List, Optional, TypedDict
 
-DEFAULT_HEADERS = {"content-type": "application/json"}
+DEFAULT_HEADERS = {
+    "content-type": "application/json",
+    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Methods": "POST, GET, OPTIONS, DELETE",
+    "Access-Control-Allow-Headers": "X-Requested-With",
+}
 
 
 class APIGatewayResponse(TypedDict):
