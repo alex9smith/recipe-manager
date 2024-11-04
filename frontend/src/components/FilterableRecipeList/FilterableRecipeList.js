@@ -1,12 +1,18 @@
 import { useLoaderData } from "react-router";
-import RecipeListItem from "../RecipeListItem/RecipeListItem";
+import RecipeList from "../RecipeList/RecipeList";
+import Filters from "../Filters/Filters";
+import SearchBar from "../SearchBar/SearchBar";
 
 function FilterableRecipeList() {
-  const recipeListItems = useLoaderData()["recipes"].map((recipe) => (
-    <RecipeListItem recipe={recipe} key={recipe.id} />
-  ));
+  const recipes = useLoaderData()["recipes"];
 
-  return <ul>{recipeListItems}</ul>;
+  return (
+    <div>
+      <SearchBar />
+      <Filters />
+      <RecipeList recipes={recipes} />
+    </div>
+  );
 }
 
 export default FilterableRecipeList;
