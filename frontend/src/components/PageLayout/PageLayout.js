@@ -1,16 +1,20 @@
 import { Link, Outlet } from "react-router-dom";
 
+import "./PageLayout.css";
+
 function PageLayout() {
   return (
-    <div>
-      <header>
-        <p>
-          <Link to="/">Home</Link>
-        </p>
-        <p>
-          <Link to="/recipes">Recipes</Link>
-        </p>
-      </header>
+    <div class="content">
+      <div class="header">
+        <nav class="navbar">
+          <Link to="/" className="home nav-link">
+            Home
+          </Link>
+          <Link to="/recipes" className="nav-link">
+            All recipes
+          </Link>
+        </nav>
+      </div>
       <Outlet />
     </div>
   );
