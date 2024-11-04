@@ -7,6 +7,8 @@ import allRecipesLoader from "./components/FilterableRecipeList/loader";
 import PageLayout from "./components/PageLayout/PageLayout";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
+import recipeDetailsLoader from "./components/RecipeDetails/loader";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,11 @@ const router = createBrowserRouter([
         path: "recipes",
         element: <FilterableRecipeList />,
         loader: allRecipesLoader,
+      },
+      {
+        path: "recipes/:recipeId",
+        element: <RecipeDetails />,
+        loader: recipeDetailsLoader,
       },
     ],
   },
