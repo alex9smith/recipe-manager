@@ -1,7 +1,7 @@
 function CategoryFilter({ selectedCategory, setSelectedCategory }) {
   return (
     <div>
-      <label for="category-filter">Choose a category:</label>
+      <label htmlFor="category-filter">Choose a category:</label>
       <select
         id="category-filter"
         name="category-filter"
