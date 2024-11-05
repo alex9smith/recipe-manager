@@ -4,7 +4,7 @@ import "./PageLayout.css";
 
 function PageLayout() {
   return (
-    <div class="content">
+    <div>
       <div class="header">
         <nav class="navbar">
           <Link to="/" className="home nav-link">
@@ -15,7 +15,9 @@ function PageLayout() {
           </Link>
         </nav>
       </div>
-      <Outlet />
+      <div class="content">
+        <Outlet />
+      </div>
     </div>
   );
 }
