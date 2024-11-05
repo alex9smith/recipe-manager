@@ -20,3 +20,4 @@ class Category(Enum):
     MEAT = "meat"
     SIDE = "side"
     DESSERT = "dessert"
+    DRINK = "drink"
