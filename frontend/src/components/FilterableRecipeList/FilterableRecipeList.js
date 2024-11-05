@@ -48,7 +48,10 @@ function FilterableRecipeList() {
   return (
     <div>
       <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
-      <CategoryFilter selectedCategory={selectedCategory} />
+      <CategoryFilter
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
       <RecipeList recipes={filteredRecipes} />
     </div>
   );
