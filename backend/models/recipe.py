@@ -59,7 +59,7 @@ class Recipe:
         self.category = category
 
         if self.id is None:
-            self.id = uuid4()
+            self.id = str(uuid4())
 
         self.client = None
 
