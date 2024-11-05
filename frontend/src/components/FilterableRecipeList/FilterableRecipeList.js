@@ -5,42 +5,35 @@ import RecipeList from "../RecipeList/RecipeList";
 import Filters from "../Filters/Filters";
 import SearchBar from "../SearchBar/SearchBar";
 
+import {
+  bookNameMatches,
+  categoryAllOrMatches,
+  difficultyAllOrMatches,
+  ingredientsMatch,
+  lengthAllOrMatches,
+  recipeNameMatches,
+} from "../../services/filter";
+
 function FilterableRecipeList() {
   const recipes = useLoaderData()["recipes"];
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedDifficulty, setSelectedDifficulty] = useState("all");
+  const [selectedLength, setSelectedLength] = useState("all");
 
   function filterRecipes(accumulator, recipe) {
-    // If the recipe matches the selected category
-    if ((selectedCategory === "all") | (selectedCategory === recipe.category)) {
-      // The search text is in the recipe name
-      if (recipe.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
-        accumulator.push(recipe);
-      }
-      // The search text is in an ingredient
-      else {
-        if (
-          recipe.ingredients.some(
-            (ingredient) =>
-              ingredient.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
-          )
-        ) {
-          accumulator.push(recipe);
-        } else {
-          // The search text is in the book title
-          if (recipe.source.type === "book") {
-            if (
-              recipe.source.title
-                .toLowerCase()
-                .indexOf(searchText.toLowerCase()) !== -1
-            ) {
-              accumulator.push(recipe);
-            }
-          }
-        }
-      }
+    // If the recipe matches the search term in any way
+    // AND the recipe matches all of the filters
+    if (
+      (recipeNameMatches(recipe, searchText) ||
+        ingredientsMatch(recipe, searchText) ||
+        bookNameMatches(recipe, searchText)) &&
+      categoryAllOrMatches(recipe, selectedCategory) &&
+      difficultyAllOrMatches(recipe, selectedDifficulty) &&
+      lengthAllOrMatches(recipe, selectedLength)
+    ) {
+      accumulator.push(recipe);
     }
-
     return accumulator;
   }
 
@@ -51,6 +44,10 @@ function FilterableRecipeList() {
       <Filters
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
+        selectedDifficulty={selectedDifficulty}
+        setSelectedDifficulty={setSelectedDifficulty}
+        selectedLength={selectedLength}
+        setSelectedLength={setSelectedLength}
       />
       <RecipeList recipes={filteredRecipes} />
     </div>

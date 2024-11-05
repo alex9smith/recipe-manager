@@ -1,11 +1,30 @@
 import CategoryFilter from "../CategoryFilter/CategoryFilter";
+import DifficultyFilter from "../DifficultyFilter/DifficultyFilter";
+import LengthFilter from "../LengthFilter/LengthFilter";
 
-function Filters({ selectedCategory, setSelectedCategory }) {
+function Filters({
+  selectedCategory,
+  setSelectedCategory,
+  selectedDifficulty,
+  setSelectedDifficulty,
+  selectedLength,
+  setSelectedLength,
+}) {
   return (
-    <CategoryFilter
-      selectedCategory={selectedCategory}
-      setSelectedCategory={setSelectedCategory}
-    />
+    <div>
+      <CategoryFilter
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+      <DifficultyFilter
+        selectedDifficulty={selectedDifficulty}
+        setSelectedDifficulty={setSelectedDifficulty}
+      />
+      <LengthFilter
+        selectedLength={selectedLength}
+        setSelectedLength={setSelectedLength}
+      />
+    </div>
   );
 }
 
