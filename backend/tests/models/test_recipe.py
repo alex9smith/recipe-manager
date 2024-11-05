@@ -66,7 +66,7 @@ class TestRecipe:
         assert isinstance(source, Book)
         assert source.type == SourceType.BOOK
         assert source.title == SOURCE_BOOK_DICT["title"]
-        assert source.page == SOURCE_BOOK_DICT["page"]
+        assert source.page == int(SOURCE_BOOK_DICT["page"])
 
     def test_source_from_dict_raises_when_type_missing(self):
         bad_source = deepcopy(SOURCE_WEBSITE_DICT)

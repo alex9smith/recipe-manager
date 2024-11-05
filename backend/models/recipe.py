@@ -34,7 +34,7 @@ class Book(Source):
     type: SourceType = SourceType.BOOK
 
     def to_dict(self) -> Dict[str, str]:
-        return {"type": self.type.value, "title": self.title, "page": self.page}
+        return {"type": self.type.value, "title": self.title, "page": str(self.page)}
 
 
 class Recipe:
@@ -87,7 +87,7 @@ class Recipe:
             elif input["type"] == "website":
                 return Website(address=input["address"])
             elif input["type"] == "book":
-                return Book(title=input["title"], page=input["page"])
+                return Book(title=input["title"], page=int(input["page"]))
             else:
                 raise ValueError("Provided type is not recognised")
 
