@@ -5,8 +5,8 @@ import "./PageLayout.css";
 function PageLayout() {
   return (
     <div>
-      <div class="header">
-        <nav class="navbar">
+      <div className="header">
+        <nav className="navbar">
           <Link to="/" className="home nav-link">
             Home
           </Link>
@@ -15,7 +15,7 @@ function PageLayout() {
           </Link>
         </nav>
       </div>
-      <div class="content">
+      <div className="content">
         <Outlet />
       </div>
     </div>
