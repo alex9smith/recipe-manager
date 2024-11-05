@@ -2,8 +2,8 @@ import { useLoaderData } from "react-router";
 
 function RecipeDetails() {
   const recipe = useLoaderData().recipe;
-  const ingredients = recipe.ingredients.map((ingredient) => (
-    <li>{ingredient}</li>
+  const ingredients = recipe.ingredients.map((ingredient, index) => (
+    <li key={index}>{ingredient}</li>
   ));
   return (
     <div>
