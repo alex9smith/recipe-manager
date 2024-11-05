@@ -34,6 +34,7 @@ class TestRecipe:
             tags=[],
             difficulty="easy",
             length="under_30",
+            category="vegetarian",
         )
         assert recipe.id == "id"
 
@@ -48,6 +49,7 @@ class TestRecipe:
             tags=[],
             difficulty="easy",
             length="under_30",
+            category="vegetarian",
         )
         assert recipe.id == "generated_id"
 

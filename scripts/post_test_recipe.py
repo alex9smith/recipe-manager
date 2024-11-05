@@ -17,6 +17,7 @@ response = requests.post(
         "source": {"type": "website", "address": "address"},
         "difficulty": "easy",
         "length": "under_30",
+        "category": "vegetarian",
     },
 )
 

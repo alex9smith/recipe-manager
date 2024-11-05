@@ -19,4 +19,5 @@ RECIPE_DICT = {
     "source": SOURCE_WEBSITE_DICT,
     "difficulty": "easy",
     "length": "under_30",
+    "category": "vegetarian",
 }

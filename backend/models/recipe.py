@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from enum import Enum
 from uuid import uuid4
 from backend.services.dynamodb import DynamoDBClient
-from backend.models.filters import Difficulty, Length
+from backend.models.filters import Category, Difficulty, Length
 
 from typing import Any, Dict, List, Optional
 
@@ -46,6 +46,7 @@ class Recipe:
         tags: List[str],
         difficulty: Difficulty,
         length: Length,
+        category: Category,
         id: Optional[str] = None,
     ) -> None:
         self.id = id
@@ -55,6 +56,7 @@ class Recipe:
         self.source = source
         self.difficulty = difficulty
         self.length = length
+        self.category = category
 
         if self.id is None:
             self.id = uuid4()
@@ -74,6 +76,7 @@ class Recipe:
             "tags": self.tags,
             "difficulty": self.difficulty.value,
             "length": self.length.value,
+            "category": self.category.value,
         }
 
     @classmethod
@@ -106,6 +109,7 @@ class Recipe:
                 ingredients=input["ingredients"],
                 difficulty=Difficulty(input["difficulty"]),
                 length=Length(input["length"]),
+                category=Category(input["category"]),
                 id=id,
             )
         except:
