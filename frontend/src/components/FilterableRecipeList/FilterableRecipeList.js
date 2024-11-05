@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router";
 import { useState } from "react";
 
 import RecipeList from "../RecipeList/RecipeList";
-import CategoryFilter from "../CategoryFilter/CategoryFilter";
+import Filters from "../Filters/Filters";
 import SearchBar from "../SearchBar/SearchBar";
 
 function FilterableRecipeList() {
@@ -48,7 +48,7 @@ function FilterableRecipeList() {
   return (
     <div>
       <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
-      <CategoryFilter
+      <Filters
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
