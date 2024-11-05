@@ -118,9 +118,8 @@ class Recipe:
 
     @classmethod
     def find_one(self, id: str) -> Optional["Recipe"]:
-        return Recipe.from_dict(
-            Recipe._init_client().get_item(partition_key="recipe", sort_key=id)
-        )
+        recipe = Recipe._init_client().get_item(partition_key="recipe", sort_key=id)
+        return Recipe.from_dict(recipe) if recipe is not None else None
 
     def save(self) -> None:
         if self.client is None:

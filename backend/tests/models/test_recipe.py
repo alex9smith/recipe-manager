@@ -158,7 +158,8 @@ class TestRecipe:
 
     @patch("backend.models.recipe.DynamoDBClient")
     def test_find_one_calls_dynamodb_client(self, dynamodb_mock: MagicMock):
-        recipe = Recipe.find_one("test")
+        dynamodb_mock.return_value.get_item.return_value = None
+        Recipe.find_one("test")
 
         dynamodb_mock.get_item.assert_called_once
 
