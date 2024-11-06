@@ -7,7 +7,7 @@ import { useState } from "react";
 
 function Plan() {
   const data = useLoaderData();
-  const [plan, setPlan] = useState(data.plan);
+  const [plan, setPlan] = useState(data.planned);
   return (
     <div className="plan-container">
       <FilterableRecipeList recipes={data.recipes} />

@@ -24,9 +24,11 @@ function Calendar({ plan, setPlan }) {
     i <= daysInMonth(today.getFullYear(), today.getMonth());
     i++
   ) {
+    const date = new Date();
+    date.setDate(i);
     days.push(
       <Day
-        date={i}
+        date={date}
         state={calculateState(i, today.getDate())}
         plan={plan}
         setPlan={setPlan}

@@ -10,15 +10,29 @@ function onDrop(e) {
   e.target.textContent = name;
 }
 
+function toIsoDate(date) {
+  return date.toISOString().split("T", 1)[0];
+}
+
 function Day({ date, state, plan, setPlan }) {
+  let dayPlan;
+  if (toIsoDate(date) in plan) {
+    dayPlan = plan[toIsoDate(date)];
+  } else {
+    dayPlan = {};
+  }
+
+  const recipeName = Object.keys(dayPlan).length ? dayPlan.recipe.name : "";
   return (
     <div
       className={"day " + state}
-      key={date}
+      key={date.getDate()}
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
-      {date}
+      {date.getDate()}
+      <br></br>
+      {recipeName}
     </div>
   );
 }
