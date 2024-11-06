@@ -1,28 +1,29 @@
+function findRecipe(recipes, id) {
+  return recipes.filter((recipe) => recipe.id === id)[0];
+}
+
 function onDragOver(e) {
   e.preventDefault();
   e.dataTransfer.effectAllowed = "copy";
-}
-
-function onDrop(e) {
-  e.preventDefault();
-  const id = e.dataTransfer.getData("text/id");
-  const name = e.dataTransfer.getData("text/name");
-  e.target.innerText = `${e.target.id}\n${name}`;
 }
 
 function toIsoDate(date) {
   return date.toISOString().split("T", 1)[0];
 }
 
-function Day({ date, state, plan, setPlan }) {
-  let dayPlan;
-  if (toIsoDate(date) in plan) {
-    dayPlan = plan[toIsoDate(date)];
-  } else {
-    dayPlan = {};
+function Day({ date, state, plan, setPlan, recipes }) {
+  function onDrop(e) {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/id");
+    const recipe = findRecipe(recipes, id);
+    const newPlan = { ...plan };
+    newPlan[toIsoDate(date)] = { recipe: recipe, notes: "" };
+    setPlan(newPlan);
   }
 
-  const recipeName = Object.keys(dayPlan).length ? dayPlan.recipe.name : "";
+  const recipeName =
+    toIsoDate(date) in plan ? plan[toIsoDate(date)].recipe.name : "";
+
   return (
     <div
       className={"day " + state}

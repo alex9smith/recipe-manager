@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 function onDragStart(e) {
   e.dataTransfer.setData("text/id", e.target.id);
-  e.dataTransfer.setData("text/name", e.target.textContent);
 }
 
 function RecipeListItem({ recipe }) {

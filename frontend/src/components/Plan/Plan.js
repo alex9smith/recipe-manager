@@ -11,7 +11,7 @@ function Plan() {
   return (
     <div className="plan-container">
       <FilterableRecipeList recipes={data.recipes} />
-      <Calendar plan={plan} setPlan={setPlan} />
+      <Calendar plan={plan} setPlan={setPlan} recipes={data.recipes} />
     </div>
   );
 }
