@@ -1,4 +1,3 @@
-import { useLoaderData } from "react-router";
 import { useState } from "react";
 
 import RecipeList from "../RecipeList/RecipeList";
@@ -18,8 +17,7 @@ import {
 
 import "./FilterableRecipeList.css";
 
-function FilterableRecipeList() {
-  const recipes = useLoaderData()["recipes"];
+function FilterableRecipeList({ recipes }) {
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedDifficulty, setSelectedDifficulty] = useState("all");

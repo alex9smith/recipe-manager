@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./components/Home/Home";
-import FilterableRecipeList from "./components/FilterableRecipeList/FilterableRecipeList";
-import allRecipesLoader from "./components/FilterableRecipeList/loader";
+import allRecipesLoader from "./components/AllRecipes/loader";
 import PageLayout from "./components/PageLayout/PageLayout";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 import recipeDetailsLoader from "./components/RecipeDetails/loader";
+import AllRecipes from "./components/AllRecipes/AllRecipes";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       },
       {
         path: "recipes",
-        element: <FilterableRecipeList />,
+        element: <AllRecipes />,
         loader: allRecipesLoader,
       },
       {
