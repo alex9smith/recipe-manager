@@ -22,6 +22,19 @@ class ApiClient {
   async getRecipe(id) {
     return await this.#getUrl(`/recipes/${id}`);
   }
+
+  async getAllPlans() {
+    return {
+      "2024-11-07": {
+        recipe: { name: "Summer salmon salad", id: "1234" },
+        notes: "",
+      },
+      "2024-11-08": {
+        recipe: { name: "Sweetcorn chowder", id: "5678" },
+        notes: "",
+      },
+    };
+  }
 }
 
 export const apiClient = new ApiClient(getApiBaseUrl());

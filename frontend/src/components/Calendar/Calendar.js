@@ -16,7 +16,7 @@ function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
 
-function Calendar() {
+function Calendar({ plan, setPlan }) {
   const today = new Date();
   const days = [];
   for (
@@ -24,7 +24,14 @@ function Calendar() {
     i <= daysInMonth(today.getFullYear(), today.getMonth());
     i++
   ) {
-    days.push(<Day date={i} state={calculateState(i, today.getDate())} />);
+    days.push(
+      <Day
+        date={i}
+        state={calculateState(i, today.getDate())}
+        plan={plan}
+        setPlan={setPlan}
+      />
+    );
   }
   return <div className="calendar">{days}</div>;
 }

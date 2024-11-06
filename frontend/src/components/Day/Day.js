@@ -10,7 +10,7 @@ function onDrop(e) {
   e.target.textContent = name;
 }
 
-function Day({ date, state }) {
+function Day({ date, state, plan, setPlan }) {
   return (
     <div
       className={"day " + state}

@@ -10,6 +10,7 @@ import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 import recipeDetailsLoader from "./components/RecipeDetails/loader";
 import AllRecipes from "./components/AllRecipes/AllRecipes";
 import Plan from "./components/Plan/Plan";
+import planLoader from "./components/Plan/loader";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       {
         path: "plan",
         element: <Plan />,
-        loader: allRecipesLoader,
+        loader: planLoader,
       },
     ],
   },
