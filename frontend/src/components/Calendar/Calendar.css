@@ -24,3 +24,7 @@
 .day.future {
   background-color: white;
 }
+
+.day.planned {
+  cursor: pointer;
+}

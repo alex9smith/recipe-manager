@@ -21,12 +21,12 @@ function Day({ date, state, plan, setPlan, recipes }) {
     setPlan(newPlan);
   }
 
-  const recipeName =
-    toIsoDate(date) in plan ? plan[toIsoDate(date)].recipe.name : "";
+  const hasPlan = toIsoDate(date) in plan;
+  const recipeName = hasPlan ? plan[toIsoDate(date)].recipe.name : "";
 
   return (
     <div
-      className={"day " + state}
+      className={`day ${state} ${hasPlan ? "planned" : ""}`}
       key={date.getDate()}
       id={date.getDate()}
       onDrop={onDrop}
