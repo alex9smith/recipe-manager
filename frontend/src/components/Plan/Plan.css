@@ -1,11 +1,26 @@
 .plan-container {
-  display: flex;
+  display: inherit;
 }
 
 .filterable-list {
-  flex: 2 200px;
+  position: fixed;
+  width: 300px;
 }
 
 .calendar {
-  flex: 3 600px;
+  position: fixed;
+  width: calc(100% - 350px);
+  right: 0;
+}
+
+/* Always show the scrollbar on the recipe list */
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }

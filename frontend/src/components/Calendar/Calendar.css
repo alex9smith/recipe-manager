@@ -10,7 +10,7 @@
 
 .recipe-list {
   height: calc(100% - 175px);
-  width: 250px;
+  width: 300px;
   bottom: 0;
   top: auto;
   overflow-y: scroll;
