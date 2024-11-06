@@ -1,14 +1,16 @@
 .calendar {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
+  position: fixed;
+  display: grid;
+  bottom: 0;
+  height: calc(100% - 75px);
+  grid-template-columns: repeat(7, 105px);
+  gap: 2px;
 }
 
 .day {
-  flex: 0 0 100px;
+  width: 100px;
   height: 100px;
   border: solid;
-  margin: 1px;
 }
 
 .day.past {
