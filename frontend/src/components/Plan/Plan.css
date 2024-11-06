@@ -7,6 +7,15 @@
   width: 300px;
 }
 
+.recipe-list {
+  height: calc(100% - 175px);
+  width: 300px;
+  bottom: 0;
+  top: auto;
+  overflow-y: scroll;
+  position: fixed;
+}
+
 .calendar {
   position: fixed;
   width: calc(100% - 350px);
