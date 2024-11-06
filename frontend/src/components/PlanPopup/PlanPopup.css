@@ -1,0 +1,7 @@
+.plan-popup {
+  display: none;
+}
+
+.plan-popup.active {
+  display: inherit;
+}
