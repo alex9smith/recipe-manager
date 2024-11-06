@@ -2,8 +2,10 @@ import { useLoaderData } from "react-router";
 import { useState } from "react";
 
 import RecipeList from "../RecipeList/RecipeList";
-import Filters from "../Filters/Filters";
 import SearchBar from "../SearchBar/SearchBar";
+import CategoryFilter from "../CategoryFilter/CategoryFilter";
+import DifficultyFilter from "../DifficultyFilter/DifficultyFilter";
+import LengthFilter from "../LengthFilter/LengthFilter";
 
 import {
   bookNameMatches,
@@ -13,6 +15,8 @@ import {
   lengthAllOrMatches,
   recipeNameMatches,
 } from "../../services/filter";
+
+import "./FilterableRecipeList.css";
 
 function FilterableRecipeList() {
   const recipes = useLoaderData()["recipes"];
@@ -40,15 +44,21 @@ function FilterableRecipeList() {
   const filteredRecipes = recipes.reduce(filterRecipes, []);
   return (
     <div>
-      <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
-      <Filters
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        selectedDifficulty={selectedDifficulty}
-        setSelectedDifficulty={setSelectedDifficulty}
-        selectedLength={selectedLength}
-        setSelectedLength={setSelectedLength}
-      />
+      <div className="filters-container">
+        <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
+        <CategoryFilter
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+        <DifficultyFilter
+          selectedDifficulty={selectedDifficulty}
+          setSelectedDifficulty={setSelectedDifficulty}
+        />
+        <LengthFilter
+          selectedLength={selectedLength}
+          setSelectedLength={setSelectedLength}
+        />
+      </div>
       <RecipeList recipes={filteredRecipes} />
     </div>
   );

@@ -1,6 +1,6 @@
 function SearchBar({ searchText, onSearchTextChange }) {
   return (
-    <form>
+    <form className="filter search">
       <input
         type="text"
         placeholder="Search..."
