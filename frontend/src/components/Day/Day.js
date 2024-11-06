@@ -7,7 +7,7 @@ function onDrop(e) {
   e.preventDefault();
   const id = e.dataTransfer.getData("text/id");
   const name = e.dataTransfer.getData("text/name");
-  e.target.textContent = name;
+  e.target.innerText = `${e.target.id}\n${name}`;
 }
 
 function toIsoDate(date) {
@@ -27,6 +27,7 @@ function Day({ date, state, plan, setPlan }) {
     <div
       className={"day " + state}
       key={date.getDate()}
+      id={date.getDate()}
       onDrop={onDrop}
       onDragOver={onDragOver}
     >
