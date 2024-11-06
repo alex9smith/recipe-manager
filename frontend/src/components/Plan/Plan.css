@@ -1,0 +1,11 @@
+.plan-container {
+  display: flex;
+}
+
+.filterable-list {
+  flex: 2 200px;
+}
+
+.calendar {
+  flex: 3 600px;
+}

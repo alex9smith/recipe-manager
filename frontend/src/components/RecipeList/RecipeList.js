@@ -5,7 +5,7 @@ function RecipeList({ recipes }) {
     <RecipeListItem recipe={recipe} key={recipe.id} />
   ));
 
-  return <ul>{items}</ul>;
+  return <ul className="recipe-list">{items}</ul>;
 }
 
 export default RecipeList;

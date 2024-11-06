@@ -13,6 +13,9 @@ function PageLayout() {
           <Link to="/recipes" className="nav-link">
             All recipes
           </Link>
+          <Link to="/plan" className="nav-link">
+            Plan
+          </Link>
         </nav>
       </div>
       <div className="content">

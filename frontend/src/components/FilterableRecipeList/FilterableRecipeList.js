@@ -41,7 +41,7 @@ function FilterableRecipeList({ recipes }) {
 
   const filteredRecipes = recipes.reduce(filterRecipes, []);
   return (
-    <div>
+    <div className="filterable-list">
       <div className="filters-container">
         <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
         <CategoryFilter

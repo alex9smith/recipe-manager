@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 import recipeDetailsLoader from "./components/RecipeDetails/loader";
 import AllRecipes from "./components/AllRecipes/AllRecipes";
+import Plan from "./components/Plan/Plan";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,11 @@ const router = createBrowserRouter([
         path: "recipes/:recipeId",
         element: <RecipeDetails />,
         loader: recipeDetailsLoader,
+      },
+      {
+        path: "plan",
+        element: <Plan />,
+        loader: allRecipesLoader,
       },
     ],
   },
