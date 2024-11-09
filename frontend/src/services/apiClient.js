@@ -35,6 +35,10 @@ class ApiClient {
       },
     };
   }
+
+  async savePlan(plan) {
+    console.log("Saving plan");
+  }
 }
 
 export const apiClient = new ApiClient(getApiBaseUrl());
