@@ -1,3 +1,5 @@
+import "./SearchBar.css";
+
 function SearchBar({ searchText, onSearchTextChange }) {
   return (
     <form className="filter search">
@@ -6,6 +8,7 @@ function SearchBar({ searchText, onSearchTextChange }) {
         placeholder="Search..."
         value={searchText}
         onChange={(e) => onSearchTextChange(e.target.value)}
+        className="search"
       ></input>
     </form>
   );
