@@ -61,16 +61,28 @@ resource "aws_apigatewayv2_route" "recipes_get_one" {
   target    = "integrations/${aws_apigatewayv2_integration.recipes_get_one.id}"
 }
 
-resource "aws_apigatewayv2_integration" "recipes_plan_get" {
+resource "aws_apigatewayv2_integration" "plan_get" {
   api_id                 = aws_apigatewayv2_api.recipe_manager_api.id
   integration_type       = "AWS_PROXY"
   payload_format_version = "2.0"
   integration_uri        = aws_lambda_function.plan_get.invoke_arn
 }
 
-
-resource "aws_apigatewayv2_route" "recipes_plan_get" {
+resource "aws_apigatewayv2_route" "plan_get" {
   api_id    = aws_apigatewayv2_api.recipe_manager_api.id
   route_key = "GET /api/v1/plan"
-  target    = "integrations/${aws_apigatewayv2_integration.recipes_plan_get.id}"
+  target    = "integrations/${aws_apigatewayv2_integration.plan_get.id}"
+}
+
+resource "aws_apigatewayv2_integration" "plan_post" {
+  api_id                 = aws_apigatewayv2_api.recipe_manager_api.id
+  integration_type       = "AWS_PROXY"
+  payload_format_version = "2.0"
+  integration_uri        = aws_lambda_function.plan_post.invoke_arn
+}
+
+resource "aws_apigatewayv2_route" "plan_post" {
+  api_id    = aws_apigatewayv2_api.recipe_manager_api.id
+  route_key = "POST /api/v1/plan"
+  target    = "integrations/${aws_apigatewayv2_integration.plan_post.id}"
 }
