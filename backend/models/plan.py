@@ -25,8 +25,8 @@ class Plan:
     def find(cls) -> Optional["Plan"]:
         client = DynamoDBClient()
         result = client.get_item(partition_key="plan", sort_key="current")
-        return Plan(result) if result is not None else None
+        return Plan(result["plan"]) if result is not None else None
 
     def save(self) -> None:
         client = DynamoDBClient()
-        client.put_item(type="plan", item=self.plan | {"id": "current"})
+        client.put_item(type="plan", item={"plan": self.plan, "id": "current"})

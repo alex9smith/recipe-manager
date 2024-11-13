@@ -24,7 +24,7 @@ class TestPlan:
         plan.save()
 
         dynamo_mock.return_value.put_item.assert_called_once_with(
-            type="plan", item=PLAN_DICT | {"id": "current"}
+            type="plan", item={"plan": PLAN_DICT, "id": "current"}
         )
 
     @patch("backend.models.plan.DynamoDBClient")
@@ -37,7 +37,7 @@ class TestPlan:
 
     @patch("backend.models.plan.DynamoDBClient")
     def test_find_returns_a_plan_if_in_dynamo(self, dynamo_mock: MagicMock):
-        dynamo_mock.return_value.get_item.return_value = PLAN_DICT
+        dynamo_mock.return_value.get_item.return_value = {"plan": PLAN_DICT}
         plan = Plan.find()
 
         assert type(plan) == Plan
