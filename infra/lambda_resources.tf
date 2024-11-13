@@ -156,3 +156,14 @@ resource "aws_lambda_permission" "apigw_options" {
     aws_lambda_function.options,
   ]
 }
+
+resource "aws_lambda_permission" "apigw_plan_get" {
+  action        = "lambda:InvokeFunction"
+  function_name = "${var.application_name}_plan_get"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.recipe_manager_api.execution_arn}/*/*"
+
+  depends_on = [
+    aws_lambda_function.plan_get,
+  ]
+}
