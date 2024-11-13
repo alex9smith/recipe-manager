@@ -35,6 +35,21 @@ class TestPlan:
             partition_key="plan", sort_key="current"
         )
 
+    @patch("backend.models.plan.DynamoDBClient")
+    def test_find_returns_a_plan_if_in_dynamo(self, dynamo_mock: MagicMock):
+        dynamo_mock.return_value.get_item.return_value = PLAN_DICT
+        plan = Plan.find()
+
+        assert type(plan) == Plan
+        assert plan.plan == PLAN_DICT
+
+    @patch("backend.models.plan.DynamoDBClient")
+    def test_find_returns_None_if_not_in_dynamo(self, dynamo_mock: MagicMock):
+        dynamo_mock.return_value.get_item.return_value = None
+        plan = Plan.find()
+
+        assert plan is None
+
     @freeze_time("2024-12-01")
     def test_remove_expired_drops_old_items(self):
         plan = Plan(PLAN_DICT)

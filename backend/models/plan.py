@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 from datetime import date, timedelta
 from backend.services.dynamodb import DynamoDBClient
 
@@ -22,9 +22,10 @@ class Plan:
         self.plan = new_plan
 
     @classmethod
-    def find(cls) -> "Plan":
+    def find(cls) -> Optional["Plan"]:
         client = DynamoDBClient()
-        return client.get_item(partition_key="plan", sort_key="current")
+        result = client.get_item(partition_key="plan", sort_key="current")
+        return Plan(result) if result is not None else None
 
     def save(self) -> None:
         client = DynamoDBClient()
