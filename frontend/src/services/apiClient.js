@@ -25,14 +25,10 @@ class ApiClient {
 
   async getPlan() {
     const plan = await this.#getUrl("/plan");
-    console.log("got plan");
-    console.log(plan);
     return plan.plan;
   }
 
   async savePlan(plan) {
-    console.log("saving plan");
-    console.log(plan);
     const response = await fetch(this.baseUrl + this.prefix + "/plan", {
       method: "POST",
       headers: {
