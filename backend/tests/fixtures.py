@@ -21,3 +21,14 @@ RECIPE_DICT = {
     "length": "under_30",
     "category": "vegetarian",
 }
+
+PLAN_DICT = {
+    "2024-11-07": {
+        "recipe": RECIPE_DICT,
+        "notes": "",
+    },
+    "2024-11-08": {
+        "recipe": RECIPE_DICT | {"id": "id2"},
+        "notes": "A note",
+    },
+}
