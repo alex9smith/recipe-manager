@@ -23,7 +23,7 @@ class ApiClient {
     return await this.#getUrl(`/recipes/${id}`);
   }
 
-  async getAllPlans() {
+  async getPlan() {
     return {
       "2024-11-07": {
         recipe: { name: "Summer salmon salad", id: "1234" },
