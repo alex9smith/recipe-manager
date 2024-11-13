@@ -14,7 +14,7 @@ class TestPlanPostHandler:
 
     @patch("backend.handlers.plan.post.Plan")
     def test_handler_returns_a_dict_with_correct_fields(self, plan_mock: MagicMock):
-        plan_mock.return_value = Plan(PLAN_DICT)
+        plan_mock.return_value.plan = PLAN_DICT
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
         for response_key in [
             "body",

@@ -21,8 +21,6 @@ class TestPlan:
     @patch("backend.models.plan.DynamoDBClient")
     def test_save_inserts_item_id(self, dynamo_mock: MagicMock):
         plan = Plan(PLAN_DICT)
-        # Need to set this to force a save
-        plan.removed_expired = True
         plan.save()
 
         dynamo_mock.return_value.put_item.assert_called_once_with(
@@ -52,14 +50,3 @@ class TestPlan:
 
         plan.remove_expired_items()
         assert len(plan.plan) == 3
-
-    @freeze_time("2020-01-01")
-    @patch("backend.models.plan.DynamoDBClient")
-    def test_save_doesnt_call_dynamo_when_there_are_no_changes(
-        self, dynamo_mock: MagicMock
-    ):
-        plan = Plan(PLAN_DICT)
-        plan.remove_expired_items()
-        plan.save()
-
-        assert not dynamo_mock.return_value.put_item.called

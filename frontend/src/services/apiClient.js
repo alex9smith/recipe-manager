@@ -24,19 +24,15 @@ class ApiClient {
   }
 
   async getPlan() {
-    return {
-      "2024-11-07": {
-        recipe: { name: "Summer salmon salad", id: "1234" },
-        notes: "",
-      },
-      "2024-11-08": {
-        recipe: { name: "Sweetcorn chowder", id: "5678" },
-        notes: "",
-      },
-    };
+    const plan = await this.#getUrl("/plan");
+    console.log("got plan");
+    console.log(plan);
+    return plan.plan;
   }
 
   async savePlan(plan) {
+    console.log("saving plan");
+    console.log(plan);
     const response = await fetch(this.baseUrl + this.prefix + "/plan", {
       method: "POST",
       headers: {
