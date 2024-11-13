@@ -2,13 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import Home from "./components/Home/Home";
-import allRecipesLoader from "./components/AllRecipes/loader";
 import PageLayout from "./components/PageLayout/PageLayout";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 import recipeDetailsLoader from "./components/RecipeDetails/loader";
-import AllRecipes from "./components/AllRecipes/AllRecipes";
 import Plan from "./components/Plan/Plan";
 import planLoader from "./components/Plan/loader";
 
@@ -19,11 +17,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "recipes",
-        element: <AllRecipes />,
-        loader: allRecipesLoader,
       },
       {
         path: "recipes/:recipeId",

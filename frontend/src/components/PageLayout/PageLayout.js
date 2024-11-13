@@ -10,9 +10,6 @@ function PageLayout() {
           <Link to="/" className="home nav-link">
             Home
           </Link>
-          <Link to="/recipes" className="nav-link">
-            All recipes
-          </Link>
           <Link to="/plan" className="nav-link">
             Plan
           </Link>
