@@ -13,7 +13,12 @@ logger = get_logger("plan-get")
 def handler(
     event: APIGatewayProxyEventV2, context: LambdaContext
 ) -> APIGatewayResponse:
+
     plan = Plan.find()
+    if plan is not None:
+        plan.remove_expired_items()
+        plan.save()
+
     return APIGatewayResponse.build(
         body={"plan": plan.plan if plan is not None else {}}
     )

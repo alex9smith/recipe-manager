@@ -39,3 +39,11 @@ class TestPlanGetHandler:
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
         body = json.loads(response["body"])
         assert body["plan"] == PLAN_DICT
+
+    @patch("backend.handlers.plan.get.Plan")
+    def test_handler_deletes_expired_items_then_saves(self, plan_mock: MagicMock):
+        plan_mock.find.return_value.plan = PLAN_DICT
+        response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
+
+        plan_mock.remove_expired_item.assert_called_once
+        plan_mock.save.assert_called_once

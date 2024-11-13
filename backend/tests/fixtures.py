@@ -31,4 +31,8 @@ PLAN_DICT = {
         "recipe": RECIPE_DICT | {"id": "id2"},
         "notes": "A note",
     },
+    "2020-01-01": {
+        "recipe": RECIPE_DICT | {"id": "id3"},
+        "notes": "",
+    },
 }
