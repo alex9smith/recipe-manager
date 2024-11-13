@@ -17,6 +17,16 @@ import {
 
 import "./FilterableRecipeList.css";
 
+function sortRecipes(a, b) {
+  if (a.name < b.name) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  return 0;
+}
+
 function FilterableRecipeList({ recipes }) {
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -40,6 +50,7 @@ function FilterableRecipeList({ recipes }) {
   }
 
   const filteredRecipes = recipes.reduce(filterRecipes, []);
+  filteredRecipes.sort(sortRecipes);
   return (
     <div className="filterable-list">
       <div className="filters-container">
