@@ -37,7 +37,20 @@ class ApiClient {
   }
 
   async savePlan(plan) {
-    console.log("Saving plan");
+    const response = await fetch(this.baseUrl + this.prefix + "/plan", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(plan),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    return await response.json();
   }
 }
 
