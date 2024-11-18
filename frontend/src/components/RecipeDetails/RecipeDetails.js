@@ -1,18 +1,17 @@
 import { useLoaderData } from "react-router";
-import { LabelGroup, Header, Heading, PageLayout } from "@primer/react";
+import { Box, LabelGroup, Header, Heading, PageLayout } from "@primer/react";
 import { HomeIcon } from "@primer/octicons-react";
 
 import CategoryLabel from "../CategoryLabel/CategoryLabel";
 import DifficultyLabel from "../DifficultyLabel/DifficultyLabel";
 import LengthLabel from "../LengthLabel/LengthLabel";
+import Source from "../Source/Source";
+import Ingredients from "../Ingredients/Ingredients";
 
 function RecipeDetails() {
   const recipe = useLoaderData().recipe;
-  const ingredients = recipe.ingredients.map((ingredient, index) => (
-    <li key={index}>{ingredient}</li>
-  ));
   return (
-    <PageLayout padding={"none"} containerWidth="full">
+    <PageLayout padding={"none"} containerWidth="fullg">
       <PageLayout.Header divider={"none"}>
         <Header>
           <Header.Item>
@@ -35,6 +34,19 @@ function RecipeDetails() {
           <DifficultyLabel difficulty={recipe.difficulty} />
           <LengthLabel length={recipe.length} />
         </LabelGroup>
+        <Box
+          sx={{
+            borderWidth: 1,
+            borderStyle: "solid",
+            borderColor: "border.default",
+            borderRadius: 1,
+            p: 3,
+            m: 3,
+          }}
+        >
+          <Source source={recipe.source} />
+          <Ingredients recipe={recipe} />
+        </Box>
       </PageLayout.Content>
     </PageLayout>
   );
