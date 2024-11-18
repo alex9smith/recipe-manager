@@ -20,16 +20,16 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "recipes/:recipeId",
-        element: <RecipeDetails />,
-        loader: recipeDetailsLoader,
-      },
-      {
         path: "plan",
         element: <Plan />,
         loader: planLoader,
       },
     ],
+  },
+  {
+    path: "recipes/:recipeId",
+    element: <RecipeDetails />,
+    loader: recipeDetailsLoader,
   },
 ]);
 
