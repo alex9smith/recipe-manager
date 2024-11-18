@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { ThemeProvider, BaseStyles } from "@primer/react";
 import "./index.css";
 import Home from "./components/Home/Home";
 import PageLayout from "./components/PageLayout/PageLayout";
@@ -34,9 +35,13 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <ThemeProvider>
+    <BaseStyles>
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
+    </BaseStyles>
+  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
