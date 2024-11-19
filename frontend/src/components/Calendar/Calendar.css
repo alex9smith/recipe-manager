@@ -1,5 +1,4 @@
 .calendar {
-  position: fixed;
   display: grid;
   bottom: 0;
   height: calc(100% - 75px);

@@ -15,8 +15,6 @@ import {
   recipeNameMatches,
 } from "../../services/filter";
 
-import "./FilterableRecipeList.css";
-
 function sortRecipes(a, b) {
   if (a.name < b.name) {
     return -1;

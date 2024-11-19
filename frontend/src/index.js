@@ -11,6 +11,7 @@ import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 import recipeDetailsLoader from "./components/RecipeDetails/loader";
 import Plan from "./components/Plan/Plan";
 import planLoader from "./components/Plan/loader";
+import NewPlan from "./components/NewPlan/NewPlan";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
     path: "recipes/:recipeId",
     element: <RecipeDetails />,
     loader: recipeDetailsLoader,
+  },
+  {
+    path: "newplan",
+    element: <NewPlan />,
+    loader: planLoader,
   },
 ]);
 
