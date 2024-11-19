@@ -1,19 +1,28 @@
 import { Link } from "react-router-dom";
-
-import "./RecipeListItem.css";
+import { Box } from "@primer/react";
 
 function onDragStart(e) {
   e.dataTransfer.setData("text/id", e.target.id);
 }
 
-function RecipeListItem({ recipe }) {
-  const url = `/recipes/${recipe.id}`;
+function RecipeListItem({ recipe, dark }) {
   return (
-    <li className="recipe-list-item">
-      <Link to={url} draggable="true" onDragStart={onDragStart} id={recipe.id}>
+    <Box
+      sx={{
+        borderRadius: 2,
+        p: 1,
+        backgroundColor: dark ? "canvas.inset" : "canvas.default",
+      }}
+    >
+      <Link
+        to={`/recipes/${recipe.id}`}
+        draggable="true"
+        onDragStart={onDragStart}
+        id={recipe.id}
+      >
         {recipe.name}
       </Link>
-    </li>
+    </Box>
   );
 }
 

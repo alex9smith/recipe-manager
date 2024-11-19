@@ -52,7 +52,14 @@ function FilterableRecipeList({ recipes }) {
   filteredRecipes.sort(sortRecipes);
   return (
     <Box>
-      <Box as="form">
+      <Box
+        as="form"
+        sx={{
+          pb: 1,
+          borderBottom: "solid",
+          borderBottomColor: "border.default",
+        }}
+      >
         <FormControl>
           <SearchBar
             searchText={searchText}
