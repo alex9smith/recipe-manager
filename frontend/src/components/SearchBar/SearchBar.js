@@ -1,16 +1,14 @@
-import "./SearchBar.css";
+import { TextInput } from "@primer/react";
+import { SearchIcon } from "@primer/octicons-react";
 
 function SearchBar({ searchText, onSearchTextChange }) {
   return (
-    <form className="filter search">
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchText}
-        onChange={(e) => onSearchTextChange(e.target.value)}
-        className="search"
-      ></input>
-    </form>
+    <TextInput
+      block={true}
+      leadingVisual={<SearchIcon />}
+      value={searchText}
+      onChange={(e) => onSearchTextChange(e.target.value)}
+    />
   );
 }
 
