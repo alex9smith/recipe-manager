@@ -3,6 +3,8 @@ import { Box } from "@primer/react";
 import { toIsoDate } from "../../services/date";
 import PlanPopup from "../PlanPopup/PlanPopup";
 
+const maxTitleLength = 30;
+
 const stateToColour = {
   past: "canvas.subtle",
   future: "canvas.default",
@@ -18,12 +20,20 @@ function onDragOver(e) {
   e.dataTransfer.effectAllowed = "copy";
 }
 
+function truncate(string) {
+  if (string.length < maxTitleLength) {
+    return string;
+  }
+
+  return string.slice(0, maxTitleLength) + "...";
+}
+
 function getDayTitle(daysPlan) {
   if (daysPlan.recipe?.name) {
-    return daysPlan.recipe.name;
+    return truncate(daysPlan.recipe.name);
   } else {
     if (daysPlan.notes) {
-      return daysPlan.notes;
+      return truncate(daysPlan.notes);
     } else {
       return "";
     }
