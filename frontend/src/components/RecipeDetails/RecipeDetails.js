@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router";
-import { Box, LabelGroup, Heading, PageLayout } from "@primer/react";
+import { LabelGroup, Heading, PageLayout } from "@primer/react";
 import TopNav from "../TopNav/TopNav";
+import BorderBox from "../BorderBox/BorderBox";
 import CategoryLabel from "../CategoryLabel/CategoryLabel";
 import DifficultyLabel from "../DifficultyLabel/DifficultyLabel";
 import LengthLabel from "../LengthLabel/LengthLabel";
@@ -21,19 +22,10 @@ function RecipeDetails() {
           <DifficultyLabel difficulty={recipe.difficulty} />
           <LengthLabel length={recipe.length} />
         </LabelGroup>
-        <Box
-          sx={{
-            borderWidth: 1,
-            borderStyle: "solid",
-            borderColor: "border.default",
-            borderRadius: 1,
-            p: 3,
-            m: 3,
-          }}
-        >
+        <BorderBox>
           <Source source={recipe.source} />
           <Ingredients recipe={recipe} />
-        </Box>
+        </BorderBox>
       </PageLayout.Content>
     </PageLayout>
   );
