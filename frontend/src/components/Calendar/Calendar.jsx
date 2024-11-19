@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Day from "../Day/Day";
 
 import "./Calendar.css";
@@ -16,12 +17,18 @@ function daysInMonth(year, month) {
   return new Date(year, month + 1, 0).getDate();
 }
 
+function firstDayOfTheMonth() {
+  const date = new Date();
+  date.setDate(1);
+  return date;
+}
+
 function Calendar({ plan, setPlan, recipes }) {
-  const today = new Date();
+  const [startDate, setStartDate] = useState(firstDayOfTheMonth());
   const days = [];
   for (
     let i = 1;
-    i <= daysInMonth(today.getFullYear(), today.getMonth());
+    i <= daysInMonth(startDate.getFullYear(), startDate.getMonth());
     i++
   ) {
     const date = new Date();
@@ -30,7 +37,7 @@ function Calendar({ plan, setPlan, recipes }) {
       <Day
         key={i}
         date={date}
-        state={calculateState(i, today.getDate())}
+        state={calculateState(i, startDate.getDate())}
         plan={plan}
         setPlan={setPlan}
         recipes={recipes}
