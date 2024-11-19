@@ -1,18 +1,20 @@
-function LengthFilter({ selectedLength, setSelectedLength }) {
+import { Select } from "@primer/react";
+
+function LengthFilter({ selectedLength, setSelectedLength, sx }) {
   return (
-    <div className="filter">
-      <select
-        id="length-filter"
-        name="length-filter"
-        value={selectedLength}
-        onChange={(e) => setSelectedLength(e.target.value)}
-      >
-        <option value="all">All lengths</option>
-        <option value="under_30">Under 30 minutes</option>
-        <option value="under_60">Under 60 minutes</option>
-        <option value="over_60">Over 60 minutes</option>
-      </select>
-    </div>
+    <Select
+      id="length-filter"
+      name="length-filter"
+      value={selectedLength}
+      onChange={(e) => setSelectedLength(e.target.value)}
+      block={true}
+      sx={sx}
+    >
+      <Select.Option value="all">All lengths</Select.Option>
+      <Select.Option value="under_30">Under 30 minutes</Select.Option>
+      <Select.Option value="under_60">Under 60 minutes</Select.Option>
+      <Select.Option value="over_60">Over 60 minutes</Select.Option>
+    </Select>
   );
 }
 

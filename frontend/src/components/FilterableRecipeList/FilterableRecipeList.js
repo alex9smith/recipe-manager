@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Box, FormControl } from "@primer/react";
 
 import RecipeList from "../RecipeList/RecipeList";
 import SearchBar from "../SearchBar/SearchBar";
@@ -50,24 +51,29 @@ function FilterableRecipeList({ recipes }) {
   const filteredRecipes = recipes.reduce(filterRecipes, []);
   filteredRecipes.sort(sortRecipes);
   return (
-    <div className="filterable-list">
-      <div className="filters-container">
-        <SearchBar searchText={searchText} onSearchTextChange={setSearchText} />
-        <CategoryFilter
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-        <DifficultyFilter
-          selectedDifficulty={selectedDifficulty}
-          setSelectedDifficulty={setSelectedDifficulty}
-        />
-        <LengthFilter
-          selectedLength={selectedLength}
-          setSelectedLength={setSelectedLength}
-        />
-      </div>
+    <Box>
+      <Box as="form">
+        <FormControl>
+          <SearchBar
+            searchText={searchText}
+            onSearchTextChange={setSearchText}
+          />
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+          <DifficultyFilter
+            selectedDifficulty={selectedDifficulty}
+            setSelectedDifficulty={setSelectedDifficulty}
+          />
+          <LengthFilter
+            selectedLength={selectedLength}
+            setSelectedLength={setSelectedLength}
+          />
+        </FormControl>
+      </Box>
       <RecipeList recipes={filteredRecipes} />
-    </div>
+    </Box>
   );
 }
 
