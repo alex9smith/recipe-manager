@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { ThemeProvider, BaseStyles } from "@primer/react";
 import "./index.css";
 import Home from "./components/Home/Home";
+import homeLoader from "./components/Home/loader";
 import PageLayout from "./components/PageLayout/PageLayout";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -16,15 +17,16 @@ const router = createBrowserRouter([
     element: <PageLayout />,
     children: [
       {
-        path: "/",
-        element: <Home />,
-      },
-      {
         path: "plan",
         element: <Plan />,
         loader: planLoader,
       },
     ],
+  },
+  {
+    path: "/",
+    element: <Home />,
+    loader: homeLoader,
   },
   {
     path: "recipes/:recipeId",
