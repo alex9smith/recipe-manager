@@ -75,6 +75,7 @@ function Day({ date, state, plan, setPlan, recipes }) {
           width: "100px",
           height: "100px",
           border: "solid",
+          borderColor: "border.default",
           cursor: "pointer",
           borderRadius: 1,
           p: 1,
