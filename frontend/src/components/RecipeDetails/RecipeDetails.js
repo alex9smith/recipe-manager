@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router";
-import { Box, LabelGroup, Header, Heading, PageLayout } from "@primer/react";
-import { HomeIcon } from "@primer/octicons-react";
-
+import { Box, LabelGroup, Heading, PageLayout } from "@primer/react";
+import TopNav from "../TopNav/TopNav";
 import CategoryLabel from "../CategoryLabel/CategoryLabel";
 import DifficultyLabel from "../DifficultyLabel/DifficultyLabel";
 import LengthLabel from "../LengthLabel/LengthLabel";
@@ -12,19 +11,7 @@ function RecipeDetails() {
   const recipe = useLoaderData().recipe;
   return (
     <PageLayout padding={"none"} containerWidth="fullg">
-      <PageLayout.Header divider={"none"}>
-        <Header>
-          <Header.Item>
-            <Header.Link href="/">
-              <HomeIcon size={32} />
-              <span>Home</span>
-            </Header.Link>
-          </Header.Item>
-          <Header.Item>
-            <Header.Link href="/plan">Plan</Header.Link>
-          </Header.Item>
-        </Header>
-      </PageLayout.Header>
+      <TopNav />
       <PageLayout.Content width={"full"} padding={"normal"}>
         <Heading as={"h1"} sx={{ mb: 2 }}>
           {recipe.name}
