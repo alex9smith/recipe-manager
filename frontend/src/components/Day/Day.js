@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Box } from "@primer/react";
+import { toIsoDate } from "../../services/date";
 import PlanPopup from "../PlanPopup/PlanPopup";
 
 const stateToColour = {
@@ -17,22 +18,34 @@ function onDragOver(e) {
   e.dataTransfer.effectAllowed = "copy";
 }
 
-function toIsoDate(date) {
-  return date.toISOString().split("T", 1)[0];
+function getDayTitle(daysPlan) {
+  if (daysPlan.recipe?.name) {
+    return daysPlan.recipe.name;
+  } else {
+    if (daysPlan.notes) {
+      return daysPlan.notes;
+    } else {
+      return "";
+    }
+  }
 }
 
 function Day({ date, state, plan, setPlan, recipes }) {
   const [popupOpen, setPopupOpen] = useState(false);
   const hasPlan = toIsoDate(date) in plan;
-  const recipeName = hasPlan ? plan[toIsoDate(date)].recipe.name : "";
+  const isoDate = toIsoDate(date);
+  const daysPlan = hasPlan ? plan[toIsoDate(date)] : { recipe: {}, notes: "" };
+
+  function updatePlan(planned) {
+    const newPlan = { ...plan };
+    newPlan[isoDate] = planned;
+    setPlan(newPlan);
+  }
 
   function onDrop(e) {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/id");
-    const recipe = findRecipe(recipes, id);
-    const newPlan = { ...plan };
-    newPlan[toIsoDate(date)] = { recipe: recipe, notes: "" };
-    setPlan(newPlan);
+    updatePlan({ recipe: findRecipe(recipes, id), notes: "" });
   }
 
   function togglePopup() {
@@ -62,12 +75,11 @@ function Day({ date, state, plan, setPlan, recipes }) {
       >
         {date.getDate()}
         <br></br>
-        {recipeName}
+        {getDayTitle(daysPlan)}
       </Box>
       {popupOpen && (
         <PlanPopup
           date={toIsoDate(date)}
-          recipe={hasPlan ? plan[toIsoDate(date)].recipe : {}}
           plan={plan}
           setPlan={setPlan}
           togglePopup={togglePopup}

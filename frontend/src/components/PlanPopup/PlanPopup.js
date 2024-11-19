@@ -1,6 +1,6 @@
 import { Box, Dialog, Textarea } from "@primer/react";
 
-function PlanPopup({ date, plan, setPlan, recipe, togglePopup }) {
+function PlanPopup({ date, plan, setPlan, togglePopup }) {
   function clearDay(e) {
     togglePopup();
     const newPlan = { ...plan };
@@ -9,10 +9,14 @@ function PlanPopup({ date, plan, setPlan, recipe, togglePopup }) {
   }
 
   function updateNotes(e) {
+    daysPlan.notes = e.target.value;
     const newPlan = { ...plan };
-    newPlan[date].notes = e.target.value;
+    newPlan[date] = daysPlan;
     setPlan(newPlan);
   }
+
+  const hasPlan = date in plan;
+  const daysPlan = hasPlan ? plan[date] : { recipe: {}, notes: "" };
 
   return (
     <Dialog
@@ -29,11 +33,8 @@ function PlanPopup({ date, plan, setPlan, recipe, togglePopup }) {
         },
       ]}
     >
-      <Box>{recipe.name}</Box>
-      <Textarea
-        value={plan[date] ? plan[date].notes : ""}
-        onChange={updateNotes}
-      />
+      <Box>{daysPlan.recipe?.name}</Box>
+      <Textarea value={daysPlan.notes} onChange={updateNotes} />
     </Dialog>
   );
 }
