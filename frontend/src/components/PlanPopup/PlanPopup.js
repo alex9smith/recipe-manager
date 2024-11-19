@@ -1,15 +1,11 @@
-import "./PlanPopup.css";
+import { Box, Dialog, Textarea } from "@primer/react";
 
-function PlanPopup({ date, plan, setPlan, recipe }) {
+function PlanPopup({ date, plan, setPlan, recipe, togglePopup }) {
   function clearDay(e) {
+    togglePopup();
     const newPlan = { ...plan };
     delete newPlan[date];
     setPlan(newPlan);
-    e.target.parentElement.parentElement.classList.remove("active");
-  }
-
-  function closePopup(e) {
-    e.target.parentElement.parentElement.classList.remove("active");
   }
 
   function updateNotes(e) {
@@ -19,21 +15,26 @@ function PlanPopup({ date, plan, setPlan, recipe }) {
   }
 
   return (
-    <div className="plan-popup">
-      <div className="plan-popup-overlay"></div>
-      <div className="plan-popup-content">
-        <div>{recipe.name}</div>
-        <div className="notes">
-          <textarea value={plan[date].notes} onChange={updateNotes} />
-        </div>
-        <button type="button" onClick={clearDay}>
-          Clear recipe
-        </button>
-        <button type="button" onClick={closePopup}>
-          Close
-        </button>
-      </div>
-    </div>
+    <Dialog
+      width="medium"
+      height="auto"
+      onClose={togglePopup}
+      title={date}
+      footerButtons={[
+        { buttonType: "danger", content: "Clear recipe", onClick: clearDay },
+        {
+          buttonType: "primary",
+          content: "Close",
+          onClick: togglePopup,
+        },
+      ]}
+    >
+      <Box>{recipe.name}</Box>
+      <Textarea
+        value={plan[date] ? plan[date].notes : ""}
+        onChange={updateNotes}
+      />
+    </Dialog>
   );
 }
 
