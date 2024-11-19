@@ -15,9 +15,6 @@ function TopNav() {
         <Header.Item>
           <Header.Link href="/plan">Plan</Header.Link>
         </Header.Item>
-        <Header.Item>
-          <Header.Link href="/newplan">New plan</Header.Link>
-        </Header.Item>
       </Header>
     </PageLayout.Header>
   );

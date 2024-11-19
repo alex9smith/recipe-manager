@@ -4,26 +4,14 @@ import { ThemeProvider, BaseStyles } from "@primer/react";
 import "./index.css";
 import Home from "./components/Home/Home";
 import homeLoader from "./components/Home/loader";
-import PageLayout from "./components/PageLayout/PageLayout";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 import recipeDetailsLoader from "./components/RecipeDetails/loader";
 import Plan from "./components/Plan/Plan";
 import planLoader from "./components/Plan/loader";
-import NewPlan from "./components/NewPlan/NewPlan";
 
 const router = createBrowserRouter([
-  {
-    element: <PageLayout />,
-    children: [
-      {
-        path: "plan",
-        element: <Plan />,
-        loader: planLoader,
-      },
-    ],
-  },
   {
     path: "/",
     element: <Home />,
@@ -35,8 +23,8 @@ const router = createBrowserRouter([
     loader: recipeDetailsLoader,
   },
   {
-    path: "newplan",
-    element: <NewPlan />,
+    path: "plan",
+    element: <Plan />,
     loader: planLoader,
   },
 ]);
