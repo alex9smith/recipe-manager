@@ -1,6 +1,12 @@
 import { useState } from "react";
-import PlanPopup from "../PlanPopup/PlanPopup";
 import { Box } from "@primer/react";
+import PlanPopup from "../PlanPopup/PlanPopup";
+
+const stateToColour = {
+  past: "canvas.subtle",
+  future: "canvas.default",
+  today: "success.subtle",
+};
 
 function findRecipe(recipes, id) {
   return recipes.filter((recipe) => recipe.id === id)[0];
@@ -35,18 +41,29 @@ function Day({ date, state, plan, setPlan, recipes }) {
 
   return (
     <Box>
-      <div
-        className={`day ${state} ${hasPlan ? "planned" : ""}`}
+      <Box
+        className={`day ${state}`}
         key={date.getDate()}
         id={date.getDate()}
         onDrop={onDrop}
         onDragOver={onDragOver}
         onClick={togglePopup}
+        sx={{
+          width: "100px",
+          height: "100px",
+          border: "solid",
+          cursor: "pointer",
+          borderRadius: 1,
+          p: 1,
+          bg: stateToColour[state],
+          lineHeight: "normal",
+          fontSize: 1,
+        }}
       >
         {date.getDate()}
         <br></br>
         {recipeName}
-      </div>
+      </Box>
       {popupOpen && (
         <PlanPopup
           date={toIsoDate(date)}

@@ -4,7 +4,6 @@ import Calendar from "../Calendar/Calendar";
 
 import { apiClient } from "../../services/apiClient";
 
-import "./Plan.css";
 import { useEffect, useState } from "react";
 
 function Plan() {
