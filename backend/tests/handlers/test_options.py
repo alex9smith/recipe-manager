@@ -13,7 +13,7 @@ class TestOptionsHandler:
         response = handler(API_GATEWAY_PROXY_EVENT_V2, LAMBDA_CONTEXT)
         headers = response["headers"]
         for name, value in [
-            ("Access-Control-Allow-Origin", "http://localhost:3000"),
+            ("Access-Control-Allow-Origin", "*"),
             ("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE"),
             ("Access-Control-Allow-Headers", "X-Requested-With, Accept, Content-Type"),
         ]:
