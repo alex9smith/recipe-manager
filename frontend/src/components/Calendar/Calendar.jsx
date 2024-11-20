@@ -2,8 +2,19 @@ import { useState } from "react";
 import { Box } from "@primer/react";
 import Day from "../Day/Day";
 import MonthSelector from "../MonthSelector/MonthSelector";
+import PlaceholderDay from "../PlaceholderDay/PlaceholderDay";
 
 import "./Calendar.css";
+
+const dayNames = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 
 function calculateState(day, today) {
   if (
@@ -29,10 +40,33 @@ function firstDayOfTheMonth() {
   return date;
 }
 
+function weekdaysBefore(date) {
+  // .getDay() returns a zero indexed day where Sunday is 0
+  // This calendar shows Monday as the first day of the week
+  // so translate the index up to Monday as 0, keeping the 0-6 range
+  return (date.getDay() + 6) % 7;
+}
+
+function daysOfWeek() {
+  const days = [];
+  dayNames.forEach((day, index) => {
+    days.push(<Box key={`day-${index}`}>{day}</Box>);
+  });
+
+  return days;
+}
+
 function Calendar({ plan, setPlan, recipes }) {
   const [startDate, setStartDate] = useState(firstDayOfTheMonth());
   const today = new Date();
-  const days = [];
+  // Start with the day labels
+  const days = [...daysOfWeek()];
+  // Fill the placeholder days before the month starts
+  for (let i = 1; i <= weekdaysBefore(startDate); i++) {
+    days.push(<PlaceholderDay key={`placeholder-${i}`} />);
+  }
+
+  // Fill the real days
   for (
     let i = 1;
     i <= daysInMonth(startDate.getFullYear(), startDate.getMonth());
@@ -46,7 +80,7 @@ function Calendar({ plan, setPlan, recipes }) {
     date.setDate(i);
     days.push(
       <Day
-        key={i}
+        key={`day-${i}`}
         date={date}
         state={calculateState(date, today)}
         plan={plan}
