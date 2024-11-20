@@ -1,5 +1,45 @@
 .calendar {
   display: grid;
-  grid-template-columns: repeat(7, 105px);
+  grid-template-columns: 1;
   gap: 10px;
+}
+
+/* note this is min width - I don't understand why it didn't 
+work like the rest with max-width */
+@media (min-width: 768px) {
+  .calendar {
+    grid-template-columns: repeat(7, 105px);
+  }
+}
+
+@media (max-width: 768px) {
+  .placeholder {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .day-of-week {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  div.day {
+    width: 100%;
+    font-size: 28px;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .day-of-month {
+    color: #57606a;
+  }
+}
+
+@media (min-width: 768px) {
+  .day-name {
+    display: none;
+  }
 }

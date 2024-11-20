@@ -40,6 +40,7 @@ function NewPlan() {
         divider="line"
         sticky="true"
         aria-label="recipe-list"
+        hidden={{ narrow: true, regular: false, wide: false }}
       >
         <FilterableRecipeList recipes={data.recipes} />
       </PageLayout.Pane>

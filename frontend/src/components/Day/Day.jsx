@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box } from "@primer/react";
-import { toIsoDate } from "../../services/date";
+import { toIsoDate, dayNames, weekdaysBefore } from "../../services/date";
 import PlanPopup from "../PlanPopup/PlanPopup";
 
 const maxTitleLength = 30;
@@ -84,7 +84,12 @@ function Day({ date, state, plan, setPlan, recipes }) {
           fontSize: 1,
         }}
       >
-        {date.getDate()}
+        <span className="day-of-month">{date.getDate()}</span>
+        <Box
+          as="span"
+          className="day-name"
+          sx={{ fontSize: 2, color: "fg.subtle" }}
+        >{` ${dayNames[weekdaysBefore(date)]}`}</Box>
         <br></br>
         {getDayTitle(daysPlan)}
       </Box>
