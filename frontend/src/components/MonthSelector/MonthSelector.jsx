@@ -22,12 +22,12 @@ function MonthSelector({ startDate, setStartDate }) {
   return (
     <Box sx={{ mb: 1 }}>
       {startDate.toLocaleString("en-gb", { month: "long", year: "numeric" })}
-      <span onClick={previousMonth}>
+      <Box as="span" onClick={previousMonth} sx={{ cursor: "pointer" }}>
         <ChevronLeftIcon size={24} />
-      </span>
-      <span onClick={nextMonth}>
+      </Box>
+      <Box as="span" onClick={nextMonth} sx={{ cursor: "pointer" }}>
         <ChevronRightIcon size={24} />
-      </span>
+      </Box>
     </Box>
   );
 }
