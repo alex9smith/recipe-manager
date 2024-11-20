@@ -61,6 +61,7 @@ function FilterableRecipeList({ recipes }) {
         }}
       >
         <FormControl>
+          <FormControl.Label visuallyHidden>Recipe filters</FormControl.Label>
           <SearchBar
             searchText={searchText}
             onSearchTextChange={setSearchText}

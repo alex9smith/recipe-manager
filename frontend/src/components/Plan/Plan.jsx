@@ -39,6 +39,7 @@ function NewPlan() {
         padding="normal"
         divider="line"
         sticky="true"
+        aria-label="recipe-list"
       >
         <FilterableRecipeList recipes={data.recipes} />
       </PageLayout.Pane>
