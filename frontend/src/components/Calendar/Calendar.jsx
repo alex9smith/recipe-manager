@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { Box } from "@primer/react";
+import {
+  dayNames,
+  daysInMonth,
+  firstDayOfTheMonth,
+  weekdaysBefore,
+} from "../../services/date";
 import Day from "../Day/Day";
 import MonthSelector from "../MonthSelector/MonthSelector";
 import PlaceholderDay from "../PlaceholderDay/PlaceholderDay";
 
 import "./Calendar.css";
-
-const dayNames = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-];
 
 function calculateState(day, today) {
   if (
@@ -30,27 +26,14 @@ function calculateState(day, today) {
   return "future";
 }
 
-function daysInMonth(year, month) {
-  return new Date(year, month + 1, 0).getDate();
-}
-
-function firstDayOfTheMonth() {
-  const date = new Date();
-  date.setDate(1);
-  return date;
-}
-
-function weekdaysBefore(date) {
-  // .getDay() returns a zero indexed day where Sunday is 0
-  // This calendar shows Monday as the first day of the week
-  // so translate the index up to Monday as 0, keeping the 0-6 range
-  return (date.getDay() + 6) % 7;
-}
-
 function daysOfWeek() {
   const days = [];
   dayNames.forEach((day, index) => {
-    days.push(<Box key={`dayname-${index}`}>{day}</Box>);
+    days.push(
+      <Box key={`dayname-${index}`} className="day-of-week">
+        {day}
+      </Box>
+    );
   });
 
   return days;
