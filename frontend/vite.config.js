@@ -9,15 +9,8 @@ export default defineConfig({
     port: 3000,
   },
   esbuild: {
-    include: /\.js$/,
+    include: [/\.jsx?$/],
     exclude: [],
     loader: "jsx",
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      loader: {
-        ".js": "jsx",
-      },
-    },
   },
 });
