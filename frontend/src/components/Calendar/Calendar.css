@@ -27,8 +27,9 @@ work like the rest with max-width */
 @media (max-width: 1150px) {
   div.day {
     width: 100%;
-    font-size: 28px;
+    font-size: 20px;
     border-radius: 5px;
+    padding-left: 10px;
   }
 }
 
