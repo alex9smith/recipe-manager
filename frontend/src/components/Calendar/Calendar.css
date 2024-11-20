@@ -6,25 +6,25 @@
 
 /* note this is min width - I don't understand why it didn't 
 work like the rest with max-width */
-@media (min-width: 768px) {
+@media (min-width: 1150px) {
   .calendar {
     grid-template-columns: repeat(7, 105px);
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
   .placeholder {
     display: none;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
   .day-of-week {
     display: none;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
   div.day {
     width: 100%;
     font-size: 28px;
@@ -32,14 +32,20 @@ work like the rest with max-width */
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
   .day-of-month {
     color: #57606a;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1150px) {
   .day-name {
+    display: none;
+  }
+}
+
+@media (max-width: 1150px) {
+  .sidebar {
     display: none;
   }
 }

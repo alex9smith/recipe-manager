@@ -1,4 +1,4 @@
-import { PageLayout } from "@primer/react";
+import { Box, PageLayout } from "@primer/react";
 import { useLoaderData } from "react-router";
 import { useState, useEffect } from "react";
 import { apiClient } from "../../services/apiClient";
@@ -33,17 +33,22 @@ function NewPlan() {
       <PageLayout.Content width={"full"} padding={"normal"}>
         <Calendar plan={plan} setPlan={setPlan} recipes={data.recipes} />
       </PageLayout.Content>
-      <PageLayout.Pane
-        position="start"
-        resizable
-        padding="normal"
-        divider="line"
-        sticky="true"
-        aria-label="recipe-list"
-        hidden={{ narrow: true, regular: false, wide: false }}
+      <Box
+        className="sidebar"
+        sx={{ borderRight: "solid", borderColor: "border.default" }}
       >
-        <FilterableRecipeList recipes={data.recipes} />
-      </PageLayout.Pane>
+        <PageLayout.Pane
+          position="start"
+          resizable
+          padding="normal"
+          divider="none"
+          sticky="true"
+          aria-label="recipe-list"
+          hidden={{ narrow: true, regular: false, wide: false }}
+        >
+          <FilterableRecipeList recipes={data.recipes} />
+        </PageLayout.Pane>
+      </Box>
     </PageLayout>
   );
 }
