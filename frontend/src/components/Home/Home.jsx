@@ -2,10 +2,10 @@ import { PageLayout, Heading } from "@primer/react";
 import { useLoaderData } from "react-router";
 
 import TopNav from "../TopNav/TopNav";
-import RecipeSummaryCard from "../RecipeSummaryCard/RecipeSummaryCard";
+import TodaySummaryCard from "../TodaySummaryCard/TodaySummaryCard";
 
 function Home() {
-  const todaysRecipe = useLoaderData();
+  const todaysPlan = useLoaderData();
 
   return (
     <PageLayout padding={"none"} containerWidth="fullg">
@@ -14,7 +14,7 @@ function Home() {
         <Heading as={"h1"} sx={{ mb: 2 }}>
           Recipe Manager
         </Heading>
-        <RecipeSummaryCard recipe={todaysRecipe} />
+        <TodaySummaryCard plan={todaysPlan} />
       </PageLayout.Content>
     </PageLayout>
   );
