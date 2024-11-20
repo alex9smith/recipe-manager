@@ -12,7 +12,7 @@ function Home() {
       <TopNav />
       <PageLayout.Content width={"full"} padding={"normal"}>
         <Heading as={"h1"} sx={{ mb: 2 }}>
-          Recipe Manager
+          Meal planner
         </Heading>
         <TodaySummaryCard plan={todaysPlan} />
       </PageLayout.Content>
