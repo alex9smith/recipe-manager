@@ -50,7 +50,7 @@ function weekdaysBefore(date) {
 function daysOfWeek() {
   const days = [];
   dayNames.forEach((day, index) => {
-    days.push(<Box key={`day-${index}`}>{day}</Box>);
+    days.push(<Box key={`dayname-${index}`}>{day}</Box>);
   });
 
   return days;
