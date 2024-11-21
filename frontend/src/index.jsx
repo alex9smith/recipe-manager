@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider, BaseStyles } from "@primer/react";
 import "./index.css";
-import AuthManager from "./components/AuthManager/AuthManager";
+import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import homeLoader from "./components/Home/loader";
 import reportWebVitals from "./reportWebVitals";
@@ -11,22 +11,33 @@ import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
 import recipeDetailsLoader from "./components/RecipeDetails/loader";
 import Plan from "./components/Plan/Plan";
 import planLoader from "./components/Plan/loader";
+import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
   {
+    path: "login",
+    element: <Login />,
+  },
+  {
     path: "/",
-    element: <Home />,
-    loader: homeLoader,
-  },
-  {
-    path: "recipes/:recipeId",
-    element: <RecipeDetails />,
-    loader: recipeDetailsLoader,
-  },
-  {
-    path: "plan",
-    element: <Plan />,
-    loader: planLoader,
+    element: <PrivateRoutes />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+        loader: homeLoader,
+      },
+      {
+        path: "recipes/:recipeId",
+        element: <RecipeDetails />,
+        loader: recipeDetailsLoader,
+      },
+      {
+        path: "plan",
+        element: <Plan />,
+        loader: planLoader,
+      },
+    ],
   },
 ]);
 
@@ -35,9 +46,7 @@ root.render(
   <ThemeProvider>
     <BaseStyles>
       <React.StrictMode>
-        <AuthManager>
-          <RouterProvider router={router} />
-        </AuthManager>
+        <RouterProvider router={router} />
       </React.StrictMode>
     </BaseStyles>
   </ThemeProvider>
