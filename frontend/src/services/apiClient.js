@@ -65,7 +65,12 @@ class ApiClient {
   }
 
   async getPlan() {
+    const cached = this.#getCachedItem("plan");
+    if (cached) {
+      return cached;
+    }
     const plan = await this.#getUrl("/plan");
+    this.#cacheItem("plan", plan.plan);
     return plan.plan;
   }
 
@@ -82,8 +87,7 @@ class ApiClient {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-
-    return await response.json();
+    this.#cacheItem("plan", plan);
   }
 }
 
