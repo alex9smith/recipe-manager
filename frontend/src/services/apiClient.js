@@ -1,7 +1,7 @@
 import { getApiBaseUrl } from "../constants";
 
 // 5 minutes in milliseconds
-const EXPIRES_IN = 5 * 60 * 1000;
+const EXPIRES_IN = 5 * 60 * 10000;
 
 function hasExpired(timestamp) {
   return timestamp <= Date.now() - EXPIRES_IN;
