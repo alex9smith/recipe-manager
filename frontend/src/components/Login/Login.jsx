@@ -1,5 +1,6 @@
-import { Box, Button } from "@primer/react";
+import { Box, Button, PageLayout } from "@primer/react";
 import { useNavigate } from "react-router";
+import TopNav from "../TopNav/TopNav";
 import { authenticationService } from "../../services/authentication";
 
 function Login() {
@@ -10,10 +11,14 @@ function Login() {
     navigate("/");
   }
   return (
-    <Box>
-      Toggle Login:
-      <Button onClick={loginHandler}>Toggle</Button>
-    </Box>
+    <PageLayout padding={"none"} containerWidth="full">
+      <TopNav />
+      <PageLayout.Content width={"full"} padding={"normal"}>
+        <Box>
+          <Button onClick={loginHandler}>Login</Button>
+        </Box>
+      </PageLayout.Content>
+    </PageLayout>
   );
 }
 

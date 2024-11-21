@@ -8,7 +8,7 @@ function Home() {
   const todaysPlan = useLoaderData();
 
   return (
-    <PageLayout padding={"none"} containerWidth="fullg">
+    <PageLayout padding={"none"} containerWidth="full">
       <TopNav />
       <PageLayout.Content width={"full"} padding={"normal"}>
         <Heading as={"h1"} sx={{ mb: 2 }}>
