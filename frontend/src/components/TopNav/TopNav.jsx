@@ -1,7 +1,9 @@
-import { Box, Header, PageLayout } from "@primer/react";
+import { Header, PageLayout } from "@primer/react";
 import { HomeIcon } from "@primer/octicons-react";
 import { useNavigate } from "react-router";
+import { googleLogout } from "@react-oauth/google";
 import { authenticationService } from "../../services/authentication";
+import { isProduction } from "../../constants";
 
 function TopNav() {
   const navigate = useNavigate();
@@ -11,6 +13,9 @@ function TopNav() {
         as="div"
         onClick={() => {
           authenticationService.logout();
+          if (isProduction()) {
+            googleLogout();
+          }
           navigate("/login");
         }}
       >
