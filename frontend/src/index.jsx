@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ThemeProvider, BaseStyles } from "@primer/react";
 import "./index.css";
+import AuthManager from "./components/AuthManager/AuthManager";
 import Home from "./components/Home/Home";
 import homeLoader from "./components/Home/loader";
 import reportWebVitals from "./reportWebVitals";
@@ -34,7 +35,9 @@ root.render(
   <ThemeProvider>
     <BaseStyles>
       <React.StrictMode>
-        <RouterProvider router={router} />
+        <AuthManager>
+          <RouterProvider router={router} />
+        </AuthManager>
       </React.StrictMode>
     </BaseStyles>
   </ThemeProvider>
