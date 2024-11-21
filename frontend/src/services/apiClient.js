@@ -23,17 +23,17 @@ class ApiClient {
     return await response.json();
   }
 
-  #cacheRecipes(recipes) {
-    this.storage.setItem("recipes-saved-at", Date.now());
-    this.storage.setItem("recipes", JSON.stringify(recipes));
+  #cacheItem(type, data) {
+    this.storage.setItem(`${type}-saved-at`, Date.now());
+    this.storage.setItem(`${type}`, JSON.stringify(data));
   }
 
-  #getCachedRecipes() {
-    const savedAt = this.storage.getItem("recipes-saved-at");
-    const recipes = this.storage.getItem("recipes");
+  #getCachedItem(type) {
+    const savedAt = this.storage.getItem(`${type}-saved-at`);
+    const data = this.storage.getItem(`${type}`);
 
     // if we don't have both items
-    if (!(savedAt && recipes)) {
+    if (!(savedAt && data)) {
       return null;
     }
 
@@ -41,22 +41,22 @@ class ApiClient {
       return null;
     }
 
-    return JSON.parse(recipes);
+    return JSON.parse(data);
   }
 
   async getAllRecipes() {
-    const cached = this.#getCachedRecipes();
+    const cached = this.#getCachedItem("recipes");
     if (cached) {
       return cached;
     }
     // otherwise fetch the recipes and cache the result
     const recipes = await this.#getUrl("/recipes");
-    this.#cacheRecipes(recipes);
+    this.#cacheItem("recipes", recipes);
     return recipes;
   }
 
   async getRecipe(id) {
-    const cached = this.#getCachedRecipes();
+    const cached = this.#getCachedItem("recipes");
     if (cached) {
       const allRecipes = cached.recipes;
       return { recipe: allRecipes.filter((r) => r.id === id).pop() };
