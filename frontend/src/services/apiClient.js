@@ -56,6 +56,11 @@ class ApiClient {
   }
 
   async getRecipe(id) {
+    const cached = this.#getCachedRecipes();
+    if (cached) {
+      const allRecipes = cached.recipes;
+      return { recipe: allRecipes.filter((r) => r.id === id).pop() };
+    }
     return await this.#getUrl(`/recipes/${id}`);
   }
 
