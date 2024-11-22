@@ -1,14 +1,7 @@
-import { Box, PageLayout } from "@primer/react";
-import TopNav from "../TopNav/TopNav";
-
+import FullWidthPage from "../FullWidthPage/FullWidthPage";
 function Unauthorised() {
   return (
-    <PageLayout padding={"none"} containerWidth="full">
-      <TopNav />
-      <PageLayout.Content width={"full"} padding={"normal"}>
-        <Box>A user with that email address was not found</Box>
-      </PageLayout.Content>
-    </PageLayout>
+    <FullWidthPage>A user with that email address was not found</FullWidthPage>
   );
 }
 
