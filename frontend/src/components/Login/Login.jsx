@@ -9,13 +9,13 @@ import { jwtDecode } from "jwt-decode";
 function Login() {
   const navigate = useNavigate();
 
-  async function handleSuccess(response) {
+  function productionLoginHandler(response) {
     const user = jwtDecode(response.credential);
     authenticationService.setUser(user);
     navigate("/");
   }
 
-  function loginHandler() {
+  function developmentLoginHandler() {
     authenticationService.setUser({
       name: "Test",
       given_name: "Test",
@@ -25,9 +25,9 @@ function Login() {
   }
 
   const loginButton = isProduction() ? (
-    <GoogleLogin onSuccess={handleSuccess} onError={console.log} />
+    <GoogleLogin onSuccess={productionLoginHandler} onError={console.log} />
   ) : (
-    <Button onClick={loginHandler}>Login</Button>
+    <Button onClick={developmentLoginHandler}>Login</Button>
   );
   return (
     <PageLayout padding={"none"} containerWidth="full">
