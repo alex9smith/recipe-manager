@@ -16,6 +16,7 @@ import planLoader from "./components/Plan/loader";
 import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
 import Unauthorised from "./components/Unauthorised/Unauthorised";
 import { getOAuthClientId } from "./constants";
+import NotFound from "./components/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,11 @@ const router = createBrowserRouter([
         loader: planLoader,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+    status: 404,
   },
 ]);
 
