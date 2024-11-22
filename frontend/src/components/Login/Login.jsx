@@ -4,13 +4,13 @@ import { GoogleLogin } from "@react-oauth/google";
 import TopNav from "../TopNav/TopNav";
 import { authenticationService } from "../../services/authentication";
 import { isProduction } from "../../constants";
-import { fetchUserProfile } from "../../services/google";
+import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const navigate = useNavigate();
 
   async function handleSuccess(response) {
-    const user = await fetchUserProfile(response);
+    const user = jwtDecode(response.credential);
     authenticationService.setUser(user);
     navigate("/");
   }
