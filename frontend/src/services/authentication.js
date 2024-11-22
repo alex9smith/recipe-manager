@@ -1,3 +1,5 @@
+import { getAllowedUserEmails } from "../constants";
+
 class AuthenticationService {
   constructor() {
     this.storage = window.sessionStorage;
@@ -18,6 +20,10 @@ class AuthenticationService {
 
   logout() {
     this.storage.removeItem("user");
+  }
+
+  isValidUser(user) {
+    return getAllowedUserEmails().includes(user.email);
   }
 }
 

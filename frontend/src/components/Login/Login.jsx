@@ -11,8 +11,11 @@ function Login() {
 
   function productionLoginHandler(response) {
     const user = jwtDecode(response.credential);
-    authenticationService.setUser(user);
-    navigate("/");
+    if (authenticationService.isValidUser(user)) {
+      authenticationService.setUser(user);
+      navigate("/");
+    }
+    navigate("/unauthorised");
   }
 
   function developmentLoginHandler() {

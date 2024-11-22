@@ -14,12 +14,18 @@ import recipeDetailsLoader from "./components/RecipeDetails/loader";
 import Plan from "./components/Plan/Plan";
 import planLoader from "./components/Plan/loader";
 import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
+import Unauthorised from "./components/Unauthorised/Unauthorised";
 import { getOAuthClientId } from "./constants";
 
 const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
+  },
+  {
+    path: "unauthorised",
+    element: <Unauthorised />,
+    status: 401,
   },
   {
     path: "/",

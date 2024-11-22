@@ -9,3 +9,7 @@ export function getOAuthClientId() {
 export function isProduction() {
   return import.meta.env.PROD;
 }
+
+export function getAllowedUserEmails() {
+  return import.meta.env.VITE_ALLOWED_USER_EMAILS.split(",");
+}
