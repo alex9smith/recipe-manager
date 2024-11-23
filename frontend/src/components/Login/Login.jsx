@@ -14,8 +14,9 @@ function Login() {
     if (authenticationService.isValidUser(user)) {
       authenticationService.setUser(user);
       navigate("/");
+    } else {
+      navigate("/unauthorised");
     }
-    navigate("/unauthorised");
   }
 
   function developmentLoginHandler() {
