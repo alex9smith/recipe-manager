@@ -17,6 +17,7 @@ import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
 import Unauthorised from "./components/Unauthorised/Unauthorised";
 import { getOAuthClientId } from "./constants";
 import NotFound from "./components/NotFound/NotFound";
+import AddNewRecipe from "./components/AddNewRecipe/AddNewRecipe";
 
 const router = createBrowserRouter([
   {
@@ -38,14 +39,18 @@ const router = createBrowserRouter([
         loader: homeLoader,
       },
       {
+        path: "plan",
+        element: <Plan />,
+        loader: planLoader,
+      },
+      {
         path: "recipes/:recipeId",
         element: <RecipeDetails />,
         loader: recipeDetailsLoader,
       },
       {
-        path: "plan",
-        element: <Plan />,
-        loader: planLoader,
+        path: "recipes/new",
+        element: <AddNewRecipe />,
       },
     ],
   },

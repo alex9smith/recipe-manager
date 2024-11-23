@@ -64,6 +64,26 @@ class ApiClient {
     return await this.#getUrl(`/recipes/${id}`);
   }
 
+  async saveRecipe(recipe) {
+    const response = await fetch(this.baseUrl + this.prefix + "/recipes", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(recipe),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const savedRecipe = await response.json();
+    const cachedRecipes = await this.getAllRecipes();
+    cachedRecipes.recipes = [...cachedRecipes.recipes, savedRecipe.recipe];
+    this.#cacheItem("recipes", cachedRecipes);
+    return savedRecipe;
+  }
+
   async getPlan() {
     const cached = this.#getCachedItem("plan");
     if (cached) {
