@@ -20,27 +20,49 @@ function getElementValue(id) {
 export default function AddOrEditRecipe({ recipe }) {
   const navigate = useNavigate();
 
+  const initialValues = recipe
+    ? recipe
+    : {
+        name: "",
+        tags: [],
+        category: "",
+        difficulty: "",
+        length: "",
+        ingredients: [],
+        source: {
+          type: "",
+          address: "",
+          title: "",
+          page: "",
+        },
+      };
+
   const [sourceType, setSourceType] = useState("book");
   const sourceFields =
     sourceType === "book" ? (
       <Box>
         <FormControl required={true} id="recipe-source-title">
           <FormControl.Label>Title</FormControl.Label>
-          <TextInput />
+          <TextInput defaultValue={initialValues.source.title} />
         </FormControl>
         <FormControl required={true} id="recipe-source-page">
           <FormControl.Label>Page number</FormControl.Label>
-          <TextInput />
+          <TextInput defaultValue={initialValues.source.page} />
         </FormControl>
       </Box>
     ) : (
       <FormControl required={true} id="recipe-source-address">
         <FormControl.Label>Website address</FormControl.Label>
-        <TextInput />
+        <TextInput defaultValue={initialValues.source.address} />
       </FormControl>
     );
 
-  const [ingredients, setIngredients] = useState([{ text: "one", id: 1 }]);
+  const [ingredients, setIngredients] = useState(
+    initialValues.ingredients.map((ingredient) => {
+      id: ingredient, text.ingredient;
+    })
+  );
+
   function onIngredientRemove(ingredientId) {
     setIngredients(
       ingredients.filter((ingredient) => ingredient.id !== ingredientId)
@@ -79,15 +101,15 @@ export default function AddOrEditRecipe({ recipe }) {
 
   return (
     <FullWidthPage>
-      <Heading>Add a recipe</Heading>
+      <Heading>{recipe ? "Edit recipe" : "Add a recipe"}</Heading>
       <Box as="form">
         <FormControl required={true} id="recipe-name">
           <FormControl.Label>Recipe name</FormControl.Label>
-          <TextInput />
+          <TextInput defaultValue={initialValues.name} />
         </FormControl>
         <FormControl required={true} id="recipe-category">
           <FormControl.Label>Category</FormControl.Label>
-          <Select>
+          <Select defaultValue={initialValues.category}>
             <Select.Option value="vegan">Vegan</Select.Option>
             <Select.Option value="vegetarian">Vegetarian</Select.Option>
             <Select.Option value="fish">Fish</Select.Option>
@@ -98,7 +120,7 @@ export default function AddOrEditRecipe({ recipe }) {
         </FormControl>
         <FormControl required={true} id="recipe-difficulty">
           <FormControl.Label>Difficulty</FormControl.Label>
-          <Select>
+          <Select defaultValue={initialValues.difficulty}>
             <Select.Option value="easy">Easy</Select.Option>
             <Select.Option value="medium">Medium</Select.Option>
             <Select.Option value="hard">Hard</Select.Option>
@@ -106,7 +128,7 @@ export default function AddOrEditRecipe({ recipe }) {
         </FormControl>
         <FormControl required={true} id="recipe-length">
           <FormControl.Label>Length</FormControl.Label>
-          <Select>
+          <Select defaultValue={initialValues.length}>
             <Select.Option value="under_30">Under 30 minutes</Select.Option>
             <Select.Option value="under_60">Under 60 minutes</Select.Option>
             <Select.Option value="over_60">Over 60 minutes</Select.Option>
@@ -114,7 +136,10 @@ export default function AddOrEditRecipe({ recipe }) {
         </FormControl>
         <FormControl required={true} id="recipe-source-type">
           <FormControl.Label>Source</FormControl.Label>
-          <Select onChange={(e) => setSourceType(e.target.value)}>
+          <Select
+            onChange={(e) => setSourceType(e.target.value)}
+            defaultValue={initialValues.source.type}
+          >
             <Select.Option value="book">Cookbook</Select.Option>
             <Select.Option value="website">Website</Select.Option>
           </Select>
