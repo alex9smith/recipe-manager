@@ -61,6 +61,19 @@ resource "aws_apigatewayv2_route" "recipes_get_one" {
   target    = "integrations/${aws_apigatewayv2_integration.recipes_get_one.id}"
 }
 
+resource "aws_apigatewayv2_integration" "recipes_delete" {
+  api_id                 = aws_apigatewayv2_api.recipe_manager_api.id
+  integration_type       = "AWS_PROXY"
+  payload_format_version = "2.0"
+  integration_uri        = aws_lambda_function.recipes_delete.invoke_arn
+}
+
+resource "aws_apigatewayv2_route" "recipes_delete" {
+  api_id    = aws_apigatewayv2_api.recipe_manager_api.id
+  route_key = "DELETE /api/v1/recipes/{id}"
+  target    = "integrations/${aws_apigatewayv2_integration.recipes_delete.id}"
+}
+
 resource "aws_apigatewayv2_integration" "plan_get" {
   api_id                 = aws_apigatewayv2_api.recipe_manager_api.id
   integration_type       = "AWS_PROXY"
