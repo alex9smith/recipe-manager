@@ -39,6 +39,9 @@ function TopNav() {
         <Header.Item>
           <Header.Link href="/plan">Plan</Header.Link>
         </Header.Item>
+        <Header.Item>
+          <Header.Link href="/recipes">All recipes</Header.Link>
+        </Header.Item>
         <Header.Item full>
           <Header.Link href="/recipes/new">Add recipe</Header.Link>
         </Header.Item>

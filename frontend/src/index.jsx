@@ -18,6 +18,8 @@ import Unauthorised from "./components/Unauthorised/Unauthorised";
 import { getOAuthClientId } from "./constants";
 import NotFound from "./components/NotFound/NotFound";
 import AddRecipe from "./components/AddRecipe/AddRecipe";
+import AllRecipes from "./components/AllRecipes/AllRecipes";
+import allRecipesLoader from "./components/AllRecipes/loader";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,11 @@ const router = createBrowserRouter([
         path: "plan",
         element: <Plan />,
         loader: planLoader,
+      },
+      {
+        path: "recipes",
+        element: <AllRecipes />,
+        loader: allRecipesLoader,
       },
       {
         path: "recipes/:recipeId",
