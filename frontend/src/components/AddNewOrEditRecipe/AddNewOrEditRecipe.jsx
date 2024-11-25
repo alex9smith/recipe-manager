@@ -17,7 +17,7 @@ function getElementValue(id) {
   return element ? element.value : null;
 }
 
-export default function AddNewRecipe() {
+export default function AddOrEditRecipe({ recipe }) {
   const navigate = useNavigate();
 
   const [sourceType, setSourceType] = useState("book");

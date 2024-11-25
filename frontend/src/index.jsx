@@ -17,7 +17,7 @@ import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
 import Unauthorised from "./components/Unauthorised/Unauthorised";
 import { getOAuthClientId } from "./constants";
 import NotFound from "./components/NotFound/NotFound";
-import AddNewRecipe from "./components/AddNewRecipe/AddNewRecipe";
+import AddNewRecipe from "./components/AddNewOrEditRecipe/AddNewOrEditRecipe";
 
 const router = createBrowserRouter([
   {
