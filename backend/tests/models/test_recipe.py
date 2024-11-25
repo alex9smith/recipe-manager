@@ -171,3 +171,11 @@ class TestRecipe:
         recipe = Recipe.find_one("test")
 
         assert recipe is None
+
+    @patch("backend.models.recipe.DynamoDBClient")
+    def test_delete_calls_dynamo_client_with_id(self, dynamodb_mock: MagicMock):
+        recipe = Recipe.from_dict(RECIPE_DICT)
+        recipe.delete()
+        dynamodb_mock.return_value.delete_item.assert_called_once_with(
+            "recipe", recipe.id
+        )

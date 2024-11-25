@@ -44,3 +44,6 @@ class DynamoDBClient:
             return result["Item"]
         else:
             return None
+
+    def delete_item(self, partition_key: str, sort_key: str) -> None:
+        self.table.delete_item(Key={"item_type": partition_key, "id": sort_key})

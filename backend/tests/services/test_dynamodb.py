@@ -74,3 +74,13 @@ class TestDynamoDBClient:
         assert item == mock_item
 
         del environ["DYNAMODB_TABLE_NAME"]
+
+    def test_delete_item_passes_through_the_id(self):
+        environ["DYNAMODB_TABLE_NAME"] = "TEST"
+        table_mock = Mock()
+        client = DynamoDBClient(table=table_mock)
+        client.delete_item("test_type", "test_id")
+
+        table_mock.delete_item.assert_called_once_with(
+            Key={"item_type": "test_type", "id": "test_id"}
+        )

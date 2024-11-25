@@ -130,3 +130,9 @@ class Recipe:
             self.client = Recipe._init_client()
 
         self.client.put_item("recipe", self.to_dict())
+
+    def delete(self) -> None:
+        if self.client is None:
+            self.client = Recipe._init_client()
+
+        self.client.delete_item("recipe", self.id)
