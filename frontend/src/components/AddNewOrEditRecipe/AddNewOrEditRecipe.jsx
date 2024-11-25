@@ -6,6 +6,7 @@ import {
   Select,
   TextInput,
   TextInputWithTokens,
+  Spinner,
 } from "@primer/react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -18,6 +19,7 @@ function getElementValue(id) {
 
 export default function AddOrEditRecipe({ recipe, onSubmit }) {
   const navigate = useNavigate();
+  const [isSaving, setIsSaving] = useState(false);
 
   const initialValues = recipe
     ? recipe
@@ -83,6 +85,7 @@ export default function AddOrEditRecipe({ recipe, onSubmit }) {
   }
 
   async function handleSubmit(event) {
+    setIsSaving(true);
     const recipe = {
       name: getElementValue("recipe-name"),
       category: getElementValue("recipe-category"),
@@ -102,9 +105,10 @@ export default function AddOrEditRecipe({ recipe, onSubmit }) {
       onSubmit();
     }
     navigate(`/recipes/${response.recipe.id}`, { replace: true });
+    setIsSaving(false);
   }
 
-  return (
+  const recipeForm = (
     <Box>
       <Heading>{recipe ? "Edit recipe" : "Add a recipe"}</Heading>
       <Box as="form">
@@ -168,4 +172,6 @@ export default function AddOrEditRecipe({ recipe, onSubmit }) {
       </Box>
     </Box>
   );
+
+  return isSaving ? <Spinner size="large" /> : recipeForm;
 }
