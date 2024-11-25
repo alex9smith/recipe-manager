@@ -85,7 +85,11 @@ function RecipeDetails() {
   return (
     <FullWidthPage>
       {isEditing ? (
-        <AddOrEditRecipe recipe={recipe} onSubmit={() => setIsEditing(false)} />
+        <AddOrEditRecipe
+          recipe={recipe}
+          onSubmit={() => setIsEditing(false)}
+          onCancel={() => setIsEditing(false)}
+        />
       ) : (
         displayRecipe
       )}

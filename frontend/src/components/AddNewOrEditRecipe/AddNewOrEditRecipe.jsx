@@ -7,6 +7,7 @@ import {
   TextInput,
   TextInputWithTokens,
   Spinner,
+  ButtonGroup,
 } from "@primer/react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -17,7 +18,7 @@ function getElementValue(id) {
   return element ? element.value : null;
 }
 
-export default function AddOrEditRecipe({ recipe, onSubmit }) {
+export default function AddOrEditRecipe({ recipe, onSubmit, onCancel }) {
   const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
 
@@ -165,9 +166,12 @@ export default function AddOrEditRecipe({ recipe, onSubmit }) {
         </FormControl>
         <FormControl>
           <FormControl.Label>Save recipe</FormControl.Label>
-          <Button variant="primary" onClick={handleSubmit}>
-            Save
-          </Button>
+          <ButtonGroup>
+            <Button variant="primary" onClick={handleSubmit}>
+              Save
+            </Button>
+            {onCancel ? <Button onClick={onCancel}>Cancel</Button> : null}
+          </ButtonGroup>
         </FormControl>
       </Box>
     </Box>
