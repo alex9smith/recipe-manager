@@ -1,6 +1,7 @@
-import { Box, Button, PageLayout } from "@primer/react";
+import { Box, Button, PageLayout, Spinner } from "@primer/react";
 import { useNavigate } from "react-router";
 import { GoogleLogin } from "@react-oauth/google";
+import { useState } from "react";
 import TopNav from "../TopNav/TopNav";
 import { authenticationService } from "../../services/authentication";
 import { isProduction } from "../../constants";
@@ -8,8 +9,10 @@ import { jwtDecode } from "jwt-decode";
 
 function Login() {
   const navigate = useNavigate();
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   function productionLoginHandler(response) {
+    setIsLoggingIn(true);
     const user = jwtDecode(response.credential);
     if (authenticationService.isValidUser(user)) {
       authenticationService.setUser(user);
@@ -20,12 +23,15 @@ function Login() {
   }
 
   function developmentLoginHandler() {
+    setIsLoggingIn(true);
     authenticationService.setUser({
       name: "Test",
       given_name: "Test",
       email: "test@example.com",
     });
-    navigate("/");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
   }
 
   const loginButton = isProduction() ? (
@@ -33,11 +39,12 @@ function Login() {
   ) : (
     <Button onClick={developmentLoginHandler}>Login</Button>
   );
+
   return (
     <PageLayout padding={"none"} containerWidth="full">
       <TopNav />
       <PageLayout.Content width={"full"} padding={"normal"}>
-        <Box>{loginButton}</Box>
+        {isLoggingIn ? <Spinner size="large" /> : loginButton}
       </PageLayout.Content>
     </PageLayout>
   );
