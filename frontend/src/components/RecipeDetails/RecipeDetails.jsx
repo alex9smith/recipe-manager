@@ -1,6 +1,14 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 import { useState } from "react";
-import { LabelGroup, Heading, Box, Button } from "@primer/react";
+import {
+  LabelGroup,
+  Heading,
+  Box,
+  Button,
+  Dialog,
+  ButtonGroup,
+  Spinner,
+} from "@primer/react";
 import FullWidthPage from "../FullWidthPage/FullWidthPage";
 import BorderBox from "../BorderBox/BorderBox";
 import CategoryLabel from "../CategoryLabel/CategoryLabel";
@@ -9,10 +17,20 @@ import LengthLabel from "../LengthLabel/LengthLabel";
 import Source from "../Source/Source";
 import Ingredients from "../Ingredients/Ingredients";
 import AddOrEditRecipe from "../AddNewOrEditRecipe/AddNewOrEditRecipe";
+import { apiClient } from "../../services/apiClient";
 
 function RecipeDetails() {
+  const navigate = useNavigate();
   const recipe = useLoaderData().recipe;
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
+
+  async function deleteRecipe() {
+    setIsDeleting(true);
+    await apiClient.deleteRecipe(recipe.id);
+    navigate("/");
+  }
 
   const displayRecipe = (
     <Box>
@@ -28,9 +46,39 @@ function RecipeDetails() {
         <Source source={recipe.source} />
         <Ingredients recipe={recipe} />
       </BorderBox>
-      <Button variant="primary" onClick={() => setIsEditing(true)}>
-        Edit recipe
-      </Button>
+      <ButtonGroup>
+        <Button variant="primary" onClick={() => setIsEditing(true)}>
+          Edit recipe
+        </Button>
+        <Button variant="danger" onClick={() => setShowDeletePopup(true)}>
+          Delete recipe
+        </Button>
+      </ButtonGroup>
+
+      {showDeletePopup && (
+        <Dialog
+          title="Are you sure?"
+          onClose={() => setShowDeletePopup(false)}
+          footerButtons={[
+            {
+              buttonType: "primary",
+              content: "Close",
+              onClick: () => setShowDeletePopup(false),
+            },
+            {
+              buttonType: "danger",
+              content: "Delete recipe",
+              onClick: deleteRecipe,
+            },
+          ]}
+        >
+          {isDeleting ? (
+            <Spinner />
+          ) : (
+            "Are you sure you want to delete this recipe?"
+          )}
+        </Dialog>
+      )}
     </Box>
   );
 

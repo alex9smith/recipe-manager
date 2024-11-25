@@ -109,6 +109,25 @@ class ApiClient {
     }
     this.#cacheItem("plan", plan);
   }
+
+  async deleteRecipe(id) {
+    const response = await fetch(
+      this.baseUrl + this.prefix + `/recipes/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error deleting recipe - status: ${response.status}`);
+    }
+    const allRecipes = await this.getAllRecipes();
+    this.#cacheItem("recipes", allRecipes);
+  }
 }
 
 export const apiClient = new ApiClient(getApiBaseUrl());
