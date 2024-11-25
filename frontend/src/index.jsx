@@ -17,7 +17,7 @@ import PrivateRoutes from "./components/PrivateRoutes/PrivateRoutes";
 import Unauthorised from "./components/Unauthorised/Unauthorised";
 import { getOAuthClientId } from "./constants";
 import NotFound from "./components/NotFound/NotFound";
-import AddNewRecipe from "./components/AddNewOrEditRecipe/AddNewOrEditRecipe";
+import AddRecipe from "./components/AddRecipe/AddRecipe";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: "recipes/new",
-        element: <AddNewRecipe />,
+        element: <AddRecipe />,
       },
     ],
   },

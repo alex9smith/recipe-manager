@@ -9,7 +9,6 @@ import {
 } from "@primer/react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import FullWidthPage from "../FullWidthPage/FullWidthPage";
 import { apiClient } from "../../services/apiClient";
 
 function getElementValue(id) {
@@ -17,7 +16,7 @@ function getElementValue(id) {
   return element ? element.value : null;
 }
 
-export default function AddOrEditRecipe({ recipe }) {
+export default function AddOrEditRecipe({ recipe, onSubmit }) {
   const navigate = useNavigate();
 
   const initialValues = recipe
@@ -59,7 +58,10 @@ export default function AddOrEditRecipe({ recipe }) {
 
   const [ingredients, setIngredients] = useState(
     initialValues.ingredients.map((ingredient) => {
-      id: ingredient, text.ingredient;
+      return {
+        id: ingredient,
+        text: ingredient,
+      };
     })
   );
 
@@ -96,11 +98,14 @@ export default function AddOrEditRecipe({ recipe }) {
       ingredients: ingredients.map((ingredient) => ingredient.text),
     };
     const response = await apiClient.saveRecipe(recipe);
-    navigate(`/recipes/${response.recipe.id}`);
+    if (onSubmit) {
+      onSubmit();
+    }
+    navigate(`/recipes/${response.recipe.id}`, { replace: true });
   }
 
   return (
-    <FullWidthPage>
+    <Box>
       <Heading>{recipe ? "Edit recipe" : "Add a recipe"}</Heading>
       <Box as="form">
         <FormControl required={true} id="recipe-name">
@@ -161,6 +166,6 @@ export default function AddOrEditRecipe({ recipe }) {
           </Button>
         </FormControl>
       </Box>
-    </FullWidthPage>
+    </Box>
   );
 }
