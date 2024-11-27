@@ -125,8 +125,8 @@ class ApiClient {
     if (!response.ok) {
       throw new Error(`Error deleting recipe - status: ${response.status}`);
     }
+    this.storage.removeItem("recipes");
     const cachedRecipes = await this.getAllRecipes();
-    cachedRecipes.recipes = cachedRecipes.filter((recipe) => recipe.id !== id);
     this.#cacheItem("recipes", cachedRecipes);
   }
 
