@@ -3,6 +3,7 @@ import { HomeIcon } from "@primer/octicons-react";
 import { useNavigate } from "react-router";
 import { googleLogout } from "@react-oauth/google";
 import { authenticationService } from "../../services/authentication";
+import { apiClient } from "../../services/apiClient";
 import { isProduction } from "../../constants";
 
 function TopNav() {
@@ -13,6 +14,7 @@ function TopNav() {
         as="div"
         onClick={() => {
           authenticationService.logout();
+          apiClient.clearCache();
           if (isProduction()) {
             googleLogout();
           }

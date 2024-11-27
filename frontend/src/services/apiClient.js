@@ -129,6 +129,11 @@ class ApiClient {
     cachedRecipes.recipes = cachedRecipes.filter((recipe) => recipe.id !== id);
     this.#cacheItem("recipes", cachedRecipes);
   }
+
+  clearCache() {
+    this.storage.removeItem("plan");
+    this.storage.removeItem("recipes");
+  }
 }
 
 export const apiClient = new ApiClient(getApiBaseUrl());
