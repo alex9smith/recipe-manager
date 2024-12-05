@@ -169,3 +169,6 @@ cython_debug/
 # Data
 *.tsv
 TODO.md
+
+# Service account credentials
+service-account-google-credentials.json
