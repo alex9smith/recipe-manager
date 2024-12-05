@@ -197,7 +197,7 @@ resource "aws_lambda_function" "calendar_update" {
   source_code_hash = data.archive_file.lambda.output_base64sha256
   runtime          = "python3.12"
   architectures    = ["arm64"]
-  timeout          = 5
+  timeout          = 30
 
   environment {
     variables = {
