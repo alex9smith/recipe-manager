@@ -1,6 +1,7 @@
 from typing import Dict, Optional
 from datetime import date, timedelta
 from backend.services.dynamodb import DynamoDBClient
+from datetime import date
 
 EXPIRED_ITEM_AGE = 60
 
@@ -30,3 +31,16 @@ class Plan:
     def save(self) -> None:
         client = DynamoDBClient()
         client.put_item(type="plan", item={"plan": self.plan, "id": "current"})
+
+    def get_summary_for_day(self, day: date) -> str | None:
+        planned = self.plan.get(day.isoformat(), None)
+        if not planned:
+            return None
+
+        recipe = planned.get("recipe", None)
+        notes = planned.get("notes", None)
+
+        if recipe:
+            return recipe["name"]
+        else:
+            return notes[:30]

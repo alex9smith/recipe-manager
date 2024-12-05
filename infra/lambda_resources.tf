@@ -4,7 +4,7 @@ resource "null_resource" "copy_lambda_code" {
   }
 
   provisioner "local-exec" {
-    command = "rm -rf ../dist/backend && mkdir ../dist/backend && cp -r ../backend ../dist/backend/backend"
+    command = "rm -rf ../dist/backend && mkdir ../dist/backend && cp -r ../backend ../dist/backend/backend && cp ../service-account-google-credentials.json ../dist/backend/service-account-google-credentials.json"
   }
 }
 
