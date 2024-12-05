@@ -43,4 +43,7 @@ class Plan:
         if recipe:
             return recipe["name"]
         else:
-            return notes[:30]
+            if len(notes) < 30:
+                return notes
+            else:
+                return notes[:30] + "..."
