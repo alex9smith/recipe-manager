@@ -3,7 +3,9 @@ from datetime import date, timedelta
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from backend.models.plan import Plan
+from backend.services.logger import get_logger
 
+logger = get_logger("calendar-update")
 
 SCOPES = [
     "https://www.googleapis.com/auth/calendar.events",
@@ -24,15 +26,20 @@ class CalendarService:
         self.calendar_events = calendar.events()
 
     def update_with_plan(self, plan: Plan) -> None:
+        logger.info(f"Recieved plan: ${plan.plan}")
         today = date.today()
         dates_to_update = [
             today + timedelta(days=n) for n in range(FUTURE_DAYS_TO_UPDATE)
         ]
+        logger.info(
+            f"Updating calendar between ${dates_to_update[0]} and ${dates_to_update[-1]}"
+        )
 
         self._clear_existing_events()
         for plan_date in dates_to_update:
             planned_summary = plan.get_summary_for_day(plan_date)
             if planned_summary:
+                logger.info(f"Updating ${plan_date} with ${planned_summary}")
                 self._create_calendar_event(day=plan_date, title=planned_summary)
 
     def _clear_existing_events(self) -> None:
