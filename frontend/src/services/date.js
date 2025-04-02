@@ -9,7 +9,9 @@ export const dayNames = [
 ];
 
 export function toIsoDate(date) {
-  return date.toISOString().split("T", 1)[0];
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split("T", 1)[0];
 }
 
 export function weekdaysBefore(date) {
