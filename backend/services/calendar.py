@@ -43,11 +43,31 @@ class CalendarService:
                 self._create_calendar_event(day=plan_date, title=planned_summary)
 
     def _clear_existing_events(self) -> None:
-        all_events = self.calendar_events.list(calendarId=CALENDAR_ID).execute()
-        for event in all_events.get("items", []):
+        all_events = self._get_all_events()
+        for event in all_events:
+            print(event["start"]["date"])
             self.calendar_events.delete(
                 calendarId=CALENDAR_ID, eventId=event["id"]
             ).execute()
+
+    def _get_all_events(self):
+        logger.info("getting first page of events")
+        response = self.calendar_events.list(calendarId=CALENDAR_ID).execute()
+        events = response.get("items", []).copy()
+        logger.info(f"found ${len(events)} events on first page")
+
+        token = response.get("nextPageToken", None)
+
+        while token is not None:
+            logger.info("getting next page")
+            response = self.calendar_events.list(
+                calendarId=CALENDAR_ID, pageToken=token
+            ).execute()
+            events.extend(response.get("items", []))
+            token = response.get("nextPageToken", None)
+
+        logger.info(f"got all ${len(events)} events")
+        return events
 
     def _create_calendar_event(self, day: date, title: str) -> None:
         self.calendar_events.insert(
